@@ -1,0 +1,8 @@
+package board;
+
+public class User {
+	// 아이디
+	// 비밀번호
+	
+	
+}// User end

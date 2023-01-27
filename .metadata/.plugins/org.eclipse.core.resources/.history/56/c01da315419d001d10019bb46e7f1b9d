@@ -1,0 +1,13 @@
+package dto;
+
+public class UpdateBoardDTO {
+	
+	private int id;
+	private String boardTitle;
+	private String boardContent;
+	
+	
+	
+	
+	
+}

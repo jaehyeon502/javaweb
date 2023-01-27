@@ -1,0 +1,9 @@
+package chapter03;
+
+// public : 클래스, 메서드 주로 사용
+// private : 멤버 변수 주로사용
+public class Modifier {
+	
+	Private String name;
+	
+}//MOdifier end
