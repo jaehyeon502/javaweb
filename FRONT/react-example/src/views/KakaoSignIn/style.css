@@ -1,0 +1,127 @@
+.kakao-container{
+    height:100vh;
+    width:100vw;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+}
+
+.kakao-login-form{
+    width:580px;
+}
+
+.kakao-logo{
+    display:flex;
+    justify-content: center;
+}
+
+.kakao-logo-img{
+    background-image:url(https://accounts.kakaocdn.net/images/pc/logo_kakao.png);
+    width: 88px;
+    height:27px;
+    background-size:100px 80px;
+}
+
+.kakao-login{
+    width:440px;
+    height:100%;
+
+    margin-top:40px;
+    margin-bottom:42px;
+    
+    border:1px solid rgba(0,0,0, .12);
+
+    padding: 55px 69px 50px;
+}
+
+.kakao-input-box{
+    margin:4px 0;
+
+    border-bottom:3px solid #cccccc;
+    border-width: 0 0 2px;
+}
+
+.kakao-input{
+    width:100%;
+    height:45px;
+
+    border:0;
+
+    font-size:18px;
+    line-height:25px;
+
+    outline:0 none;
+}
+
+.kakao-checkbox-box{
+    margin-top:25px;
+    font-size:14px;
+    color:rgba(0,0,0,.7);
+}
+
+.kakao-checkbox{
+    margin-right:8px;
+}
+
+.kakao-button-layout{
+    padding-top:40px;
+}
+
+.kakao-login-button{
+    width: 100%;
+    height:50px;
+
+    border:0;
+    border-radius: 4px;
+
+    font-size:16px;
+    font-weight:400;
+
+    background-color:#f2e500;
+    line-height:51px;
+    color:#191919;
+    cursor:pointer;
+}
+
+.kakao-login-button:hover{
+    background-color:#fed500;
+}
+
+.kakao-divider{
+    height:1px;
+    margin-top:23px;
+    margin-bottom:23px;
+
+    background-color:rgba(0,0,0,.06);
+}
+
+.kakao-qr-button{
+    width:100%;
+    height:50px;
+    border:0;
+    border-radius: 4px;
+
+    font-size:16px;
+    font-weight:400;
+
+    background-color:#f0f0f0;
+    line-height:51px;
+    color:#191919;
+    cursor:pointer;
+}
+
+.kakao-qr-button:hover{
+    background-color:#e0e0e0;
+}
+
+.kakao-link-layout{
+    margin-top:26px;
+    display:flex;
+    justify-content: space-between;
+}
+
+.kakao-link-layout>a{
+    text-decoration:none;
+    font-size:12px;
+    color:#191919;
+}
