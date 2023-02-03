@@ -1,7 +1,0 @@
-package database;
-
-public class DatabaseConnector {
-	
-	private static final String DATABASE_URL = "";
-	
-}

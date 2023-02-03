@@ -1,0 +1,24 @@
+git init 		: 해당 폴더에 git을 사용하도록 초기화
+git add . or 파일명	: 워크 트리에 있는 파일을 스테이지에 올림
+git commit -m "message"	: 스테이지에 있는 파일을 로컬 레포지토리에 올림
+git status		: 현재 깃 버전의 상태를 보여줌
+
+git branch		: 브랜치 리스트를 보여줌
+git branch -M 브랜치명 	: 현재 브랜치의 이름을 변경
+git branch 브랜치명	: 브랜치를 생성
+git checkout 브랜치명	: 브랜치를 이동
+git merge 브랜치명 	: 현재 브랜치에 지정한 브랜치를 병합
+
+git remote 			: 현재 연결된 원격 저장소 리스트 출력
+git remote add 저장소명 저장소 URL	: 저장소명으로 저장소URL을 원격 저장소로 등록
+git remote remove 저장소명		: 해당 원격 저장소를 삭제
+
+git push 저장소명 브랜치명 		: 지정한 저장소에 지정 브랜치로 push함
+git pull 저장소명 브랜치명		: 현재 브랜치(로컬브랜치)에 해당 저장소의 해당 브랜치를 당겨옴
+
+git config --global user.name		: 현재 설정된 유저의 이름을 불러옴
+git config --global user.name "사용자명"	: 해당 사용자명으로 설정값을 변경
+git config --global user.email		: 현재 설정된 유저의 이메일을 불러옴
+git config --global user.email "사용자명"	: 해당 사용자 이메일로 설정값을 변경
+
+

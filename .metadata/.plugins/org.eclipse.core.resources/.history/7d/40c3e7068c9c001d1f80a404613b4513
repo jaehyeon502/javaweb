@@ -1,7 +1,0 @@
-package dto;
-
-public class insertBoardDTO {
-	
-	private String boardTitle;
-	
-}

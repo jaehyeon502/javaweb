@@ -1,0 +1,84 @@
+
+/* . : class의 이름을 지정 */
+.input-style {
+    width: 430px;
+    height: 29px;
+    padding: 10px 14px;
+    border: 1px solid #dadada;
+}
+
+#cotainer{
+    margin:0 auto;
+    max-width: 768px;
+    min-width:460px;
+    height:auto;
+}
+
+#logo-container{
+    padding-top:60px;
+    padding-bottom:20px;
+}
+
+/* # : id의 이름을 지정 */
+#logo {
+    /* 가로 가운데 정렬 */
+    margin: 0 auto;
+
+    width: 240px;
+    height: 44px;
+    display: block;
+    /* 배경 이미지 지정 */
+    background-image: url(https://static.nid.naver.com/images/ui/join/m_naver_logo_20191126.png);
+    background-size: 240px auto;
+    background-repeat: no-repeat;
+    font-size: 0;
+}
+
+.inline{
+    display:inline;
+}
+
+.flex{
+    width:100%;
+    display:flex;
+    justify-content: space-between;
+}
+
+.flex-1{
+    flex: auto;
+}
+
+.content{
+    width:460px;
+    margin:0 auto;
+}
+
+
+.input-label {
+    width: 460px;
+    height: 16px;
+    font-size: 14px;
+    font-weight: 700;
+    margin: 19px 0 8px;
+}
+
+.input-middle-style{
+    width:119px;
+    display:block;
+    padding: 10px 14px;
+    border: 1px solid #dadada;
+}
+
+.join-button{
+    width:100%;
+    border:none;
+    padding-top:15px;
+    padding-bottom:15px;
+    margin-top:30px;
+    margin-bottom:9px;
+
+    background-color:#03c75a;
+    color:white;
+    font-size:18px;
+    font-weight:700;
+}
