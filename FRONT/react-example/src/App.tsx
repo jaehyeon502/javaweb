@@ -2,12 +2,16 @@ import { useState } from 'react'
 import KakaoSignIn from './views/KakaoSignIn';
 import NaverSignIn from './views/NaverSignIn'
 
+import { Link } from "react-router-dom"
+
 import './App.css'
+import MenuAppBar from './components/MenuAppBar';
 
 export default function App() {
     const [view, setView] = useState<string>("");
     return (
         <div>
+            <MenuAppBar />
             <button onClick={() => setView('NaverSignIn')}>네이버 회원가입 화면</button>
             <button onClick={() => setView('KakaoSignIn')}>카카오 로그인 화면</button>
             <div>
@@ -21,7 +25,7 @@ export default function App() {
                 {/* if(조건){} else {if(조건) {} else {} } */}
                 {/* 
                 //^ <></> : 아무런 의미가 없는 빈태그
-                */}
+                */}               
                 {   view === 'NaverSignIn' ? (<NaverSignIn />) :
                     view === 'KakaoSignIn' ? (<KakaoSignIn />) : (<></>)}
             </div>
