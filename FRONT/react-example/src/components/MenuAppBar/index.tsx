@@ -1,4 +1,4 @@
-import { useState, MouseEvent } from 'react';
+import { useState, MouseEvent, Dispatch, SetStateAction } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,12 +13,15 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
+
 const pages = [{ title: 'Naver', viewValue: 'NaverSignIn' }, { title: 'Kakao', viewValue: 'KakaoSignIn' }];
+interface Props{
+  setView: Dispatch<SetStateAction<string>>;
+}
 
-function MenuAppBar() {
-  //! view state //
-  const [view, setView] = useState<string>("");
-
+function MenuAppBar({ setView }: Props) {
+  //! view state 
+  
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
@@ -114,7 +117,7 @@ function MenuAppBar() {
             {pages.map((page) => (
               <Button
                 key={page.title}
-                onClick={() => setView(page.title)}
+                onClick={() => setView(page.viewValue)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {page.title}

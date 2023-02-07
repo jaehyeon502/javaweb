@@ -1,14 +1,14 @@
 import './App.css';
-import LoginView from './view/LoginView';
+import AuthenticationView from './view/AuthenticationView';
 import NavigationBar from './view/NavigationBar';
 
 function App() {
   return (
     <>
       <NavigationBar />
-      <LoginView />
+      <AuthenticationView />
     </>
   );
-}
+} 
 
 export default App;

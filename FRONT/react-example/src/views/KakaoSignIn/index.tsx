@@ -1,8 +1,12 @@
-import React from 'react'
+import { Alert } from '@mui/material'
+import React, { useState } from 'react'
 
-import './style.css' 
+import './style.css'
 
 export default function KakaoSignIn() {
+
+    const [email, setEmail] = useState<string>("");
+
     return (
         <div className='kakao-container'>
             {/* 로그인 폼 레이아웃 */}
@@ -17,8 +21,19 @@ export default function KakaoSignIn() {
                     <div className='kakao-input-layout'>
                         {/* 아이디 인풋 */}
                         <div className='kakao-input-box' >
-                            <input className='kakao-input' type='text' placeholder='카카오메일 아이디, 이메일, 전화번호' />
+                            <input
+                                className='kakao-input'
+                                type='text'
+                                placeholder='카카오메일 아이디, 이메일, 전화번호'
+                                onChange={(event) => setEmail(event.target.value)}
+                            />
                         </div>
+                        { email && (
+                            <Alert severity="info">
+                                카카오 메일이 있다면 메일 아이디만 입력해 보세요.
+                            </Alert>
+                        )}
+
                         {/* 비밀번호 인풋 */}
                         <div className='kakao-input-box'>
                             <input className='kakao-input' type='password' placeholder='비밀번호' />

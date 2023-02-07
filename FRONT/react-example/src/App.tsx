@@ -11,9 +11,8 @@ export default function App() {
     const [view, setView] = useState<string>("");
     return (
         <div>
-            <MenuAppBar />
-            <button onClick={() => setView('NaverSignIn')}>네이버 회원가입 화면</button>
-            <button onClick={() => setView('KakaoSignIn')}>카카오 로그인 화면</button>
+            <MenuAppBar setView={setView} />
+            
             <div>
                 {/* {view === 'NaverSignIn' && (<NaverSignIn />)} */}
                 {/* 
@@ -25,7 +24,8 @@ export default function App() {
                 {/* if(조건){} else {if(조건) {} else {} } */}
                 {/* 
                 //^ <></> : 아무런 의미가 없는 빈태그
-                */}               
+                */}
+                {view}
                 {   view === 'NaverSignIn' ? (<NaverSignIn />) :
                     view === 'KakaoSignIn' ? (<KakaoSignIn />) : (<></>)}
             </div>
