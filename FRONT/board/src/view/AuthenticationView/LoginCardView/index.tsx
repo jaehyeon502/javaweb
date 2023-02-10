@@ -10,13 +10,15 @@ interface Props {
 
 export default function LoginCardView({ setLoginView }: Props) {
 
+    const [email, setEmail] = useState<string>('');
+    const [ password, setPassword ] = useState<string>('');
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
     return (
         <Box display='flex' sx={{ height: '100%', flexDirection: 'column', justifyContent: 'space-between' }}>
             < Box >
                 <Typography variant='h5' fontWeight='900'>로그인</Typography>
-                <TextField sx={{ mt: '40px' }} fullWidth id="standard-basic" label="이메일 주소" variant="standard" />
+                <TextField sx={{ mt: '40px' }} fullWidth id="standard-basic" label="이메일 주소" variant="standard" onChange={(event) => setEmail(event.target.value)} />
                 <FormControl fullWidth variant="standard" sx={{ mt: '40px' }}>
                     <InputLabel>비밀번호</InputLabel>
                     <Input
@@ -30,6 +32,7 @@ export default function LoginCardView({ setLoginView }: Props) {
                                 </IconButton>
                             </InputAdornment>
                         }
+                        onChange={(event) => setPassword(event.target.value)}
                     />
                 </FormControl>
             </Box >
