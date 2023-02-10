@@ -97,7 +97,7 @@ export default function Es6TypeScript() {
 
     //# 5. if
     //? if문의 조건 
-    //? ES6 와 TS에서는 false, '', 0, null, nudefined 를 모두 false로 받고 나머지는 모두 true
+    //? ES6 와 TS에서는 false, '', 0, null, undefined 를 모두 false로 받고 나머지는 모두 true
     const emptyArray: null = null;
     if (!emptyArray) console.log('a');
 
@@ -177,6 +177,16 @@ export default function Es6TypeScript() {
     console.log(state);
 
     //# 9. Enum
+    //? Enumerated Type: 열거형 타입
+    enum ENUMERATED {
+        APPLE = 'apple',
+        BANANA = 'banana',
+        CAROT = 'carot'
+    }
+
+    const fruit = ENUMERATED.APPLE;
+    console.log(fruit);
+    // let fruit2: ENUMERATED = 'apple';
 
     return (
         <></>

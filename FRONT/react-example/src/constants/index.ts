@@ -1,3 +1,5 @@
+import { VIEW } from "src/enums";
+
 const AGE = 20;
 const BIRTH = '010101'
 //# export : 해당 파일 외부에서 특정 변수 혹은 함수등을 사용 할 수 있도록 내보내는 역할
@@ -22,18 +24,26 @@ export default AGE;
 export const PAGES = [
     {
         title:'Naver',
-        viewValue:'NaverSignIn',
+        viewValue:VIEW.NAVER,
     },
     {
         title:'Kakao',
-        viewValue:'KakaoSignIn'
+        viewValue:VIEW.KAKAO
     },
     {
         title:'ES6 + Typescript',
-        viewValue:'es6TypeScript'
+        viewValue:VIEW.TYPESCRIPT
     },
     {
         title:'JSX + TSX',
-        viewValue:'jsxTsx'
+        viewValue:VIEW.TSX
+    },
+    {
+        title: 'HOOK',
+        viewValue: VIEW.HOOK
+    },
+    {
+        title: 'MUI',
+        viewValue: VIEW.MUI
     }
 ]

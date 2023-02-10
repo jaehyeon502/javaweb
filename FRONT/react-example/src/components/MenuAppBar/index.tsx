@@ -13,10 +13,11 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { PAGES } from 'src/constants';
+import { VIEW } from 'src/enums';
 
 
 interface Props{
-  setView: Dispatch<SetStateAction<string>>;
+  setView: Dispatch<SetStateAction<VIEW>>;
 }
 
 function MenuAppBar({ setView }: Props) {

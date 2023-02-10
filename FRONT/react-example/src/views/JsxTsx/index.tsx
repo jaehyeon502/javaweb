@@ -45,12 +45,12 @@ export default function JsxTsx() {
   return (
     <div>
       {text}
-      { trueFlag && (<div>true</div>) }
-      { falseFlag && (<div>false</div>) }
-      { trueFlag || (<div>or True</div>) }
-      { falseFlag || (<div>or False</div>) }
-      { trueFlag ? (<div>true</div>) : (<div>false</div>)}
-      { numberArray.map((number) => (<div>{number}</div>)) }
+      {trueFlag && (<div>true</div>)}
+      {falseFlag && (<div>false</div>)}
+      {trueFlag || (<div>or True</div>)}
+      {falseFlag || (<div>or False</div>)}
+      {trueFlag ? (<div>true</div>) : (<div>false</div>)}
+      {numberArray.map((number) => (<div>{number}</div>))}
     </div>
   )
 }
