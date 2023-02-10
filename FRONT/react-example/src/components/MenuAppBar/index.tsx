@@ -12,9 +12,9 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import { PAGES } from 'src/constants';
 
 
-const pages = [{ title: 'Naver', viewValue: 'NaverSignIn' }, { title: 'Kakao', viewValue: 'KakaoSignIn' }];
 interface Props{
   setView: Dispatch<SetStateAction<string>>;
 }
@@ -88,7 +88,7 @@ function MenuAppBar({ setView }: Props) {
               Naver, naverSignIn
               Kakao, kakaoSignIn
               */}
-              {pages.map((page) => (
+              {PAGES.map((page) => (
                 <MenuItem key={page.title} onClick={() => setView(page.viewValue)}>
                   <Typography textAlign="center">{page.title}</Typography>
                 </MenuItem>
@@ -114,7 +114,7 @@ function MenuAppBar({ setView }: Props) {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {PAGES.map((page) => (
               <Button
                 key={page.title}
                 onClick={() => setView(page.viewValue)}
