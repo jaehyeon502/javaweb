@@ -8,6 +8,7 @@ import Es6TypeScript from './views/Es6TypeScript';
 import JsxTsx from './views/JsxTsx';
 import { VIEW } from './enums';
 import Hook from './views/Hook';
+import Mui from './views/Mui';
 
 export default function App() {
     const [view, setView] = useState<VIEW>(VIEW.NAVER);
@@ -27,12 +28,14 @@ export default function App() {
                 {/* 
                 //^ <></> : 아무런 의미가 없는 빈태그
                 */}
-                {view === VIEW.NAVER ? (<NaverSignIn />) :
-                    view === VIEW.KAKAO ? (<KakaoSignIn />) :
-                        view === VIEW.TYPESCRIPT ? (<Es6TypeScript />) :
-                            view === VIEW.TSX ? (<JsxTsx />) :
-                                view === VIEW.HOOK ? (<Hook />) :
-                                    view === VIEW.MUI ? (<></>) : (<></>)}
+                {
+                view === VIEW.NAVER ? (<NaverSignIn />) :
+                view === VIEW.KAKAO ? (<KakaoSignIn />) :
+                view === VIEW.TYPESCRIPT ? (<Es6TypeScript />) :
+                view === VIEW.TSX ? (<JsxTsx />) :
+                view === VIEW.HOOK ? (<Hook />) :
+                view === VIEW.MUI ? (<Mui />) : (<></>)
+                }
             </div>
         </div>
     )
