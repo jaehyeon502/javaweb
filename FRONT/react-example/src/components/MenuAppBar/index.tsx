@@ -14,16 +14,15 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { PAGES } from 'src/constants';
 import { VIEW } from 'src/enums';
+import { Link, useNavigate } from 'react-router-dom';
 
 
-interface Props{
-  setView: Dispatch<SetStateAction<VIEW>>;
-}
-
-function MenuAppBar({ setView }: Props) {
+function MenuAppBar() {
   //! view state 
-  
+
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const navigator = useNavigate();
+  const moveNavi = () => {}
 
   const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -90,9 +89,11 @@ function MenuAppBar({ setView }: Props) {
               Kakao, kakaoSignIn
               */}
               {PAGES.map((page) => (
-                <MenuItem key={page.title} onClick={() => setView(page.viewValue)}>
-                  <Typography textAlign="center">{page.title}</Typography>
-                </MenuItem>
+                <Link to={page.viewValue}>
+                  <MenuItem key={page.title}>
+                    <Typography style={{ textAlign: "center" }}>{page.title}</Typography>
+                  </MenuItem>
+                </Link>
               ))}
 
             </Menu>
@@ -116,13 +117,13 @@ function MenuAppBar({ setView }: Props) {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {PAGES.map((page) => (
-              <Button
-                key={page.title}
-                onClick={() => setView(page.viewValue)}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page.title}
-              </Button>
+                <Button
+                  key={page.title}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                  onClick={() => navigator(page.viewValue)}
+                >
+                  {page.title}
+                </Button>
             ))}
           </Box>
 

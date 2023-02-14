@@ -9,13 +9,15 @@ import JsxTsx from './views/JsxTsx';
 import { VIEW } from './enums';
 import Hook from './views/Hook';
 import Mui from './views/Mui';
+import RouterView from './views/RouterView';
+import { Route, Routes } from 'react-router-dom';
+import Typography from '@mui/material/Typography';
 
 export default function App() {
     const [view, setView] = useState<VIEW>(VIEW.NAVER);
     return (
         <div>
-            <MenuAppBar setView={setView} />
-
+            <MenuAppBar />
             <div>
                 {/* {view === 'NaverSignIn' && (<NaverSignIn />)} */}
                 {/* 
@@ -28,13 +30,24 @@ export default function App() {
                 {/* 
                 //^ <></> : 아무런 의미가 없는 빈태그
                 */}
-                {
+                <Routes>
+                    <Route path={VIEW.NAVER} element={(<NaverSignIn />)} />
+                    <Route path={VIEW.KAKAO} element={(<KakaoSignIn />)} />
+                    <Route path={VIEW.TYPESCRIPT} element={(<Es6TypeScript />)} />
+                    <Route path={VIEW.TSX} element={(<JsxTsx />)} />
+                    <Route path={VIEW.HOOK} element={(<Hook />)} />
+                    <Route path={VIEW.MUI} element={(<Mui />)} />
+                    <Route path={'router/:pathValue'} element={(<RouterView />)} />
+                    <Route path='*' element={(<Typography variant="h3">404 : Not Founded!</Typography>)} />
+                </Routes>
+                {/* 
                 view === VIEW.NAVER ? (<NaverSignIn />) :
                 view === VIEW.KAKAO ? (<KakaoSignIn />) :
                 view === VIEW.TYPESCRIPT ? (<Es6TypeScript />) :
                 view === VIEW.TSX ? (<JsxTsx />) :
                 view === VIEW.HOOK ? (<Hook />) :
-                view === VIEW.MUI ? (<Mui />) : (<></>)
+                view === VIEW.MUI ? (<Mui />) : 
+                view === VIEW.ROUTER ? (<RouterView />) : (<></>) */
                 }
             </div>
         </div>

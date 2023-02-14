@@ -190,10 +190,10 @@ export default function Mui() {
             //^ 3. spacing
             //? item간의 간격 지정 - container가 지정된 Grid Component에서 사용
             //^ 4. xs, sm, md, lg, xl
-            //? xs - 576px > width 
-            //? sm - 576 <= width
+            //? xs - 600px > width 
+            //? sm - 600 <= width
             //? md - 900px <= width
-            //? lg - 992px <= width
+            //? lg - 1200px <= width
             //? xl - 1536px <= width
             */}
             <Grid container spacing={1}>
