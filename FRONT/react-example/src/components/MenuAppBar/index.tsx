@@ -1,4 +1,4 @@
-import { useState, MouseEvent, Dispatch, SetStateAction } from 'react';
+import { useState, MouseEvent } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -11,9 +11,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import { PAGES } from 'src/constants';
-import { VIEW } from 'src/enums';
 import { Link, useNavigate } from 'react-router-dom';
 
 
