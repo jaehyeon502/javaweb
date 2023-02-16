@@ -32,9 +32,8 @@ import { Typography, TextField, Button } from '@mui/material';
 //? const { pathVariable명 } = useParams();
 
 //^ useLocation Hook 함수
-//? 현재의 Resource Path를 문자열로 반환해주는 훅 함수
+//? 현재의 Resource Path에대한 정보를 객체로 반환해주는 훅 함수
 //? import { useLocation } from 'react-router-dom';
-
 //? const 상수명 = useLocation();
 
 export default function RouterView() {

@@ -1,0 +1,9 @@
+Korean Language Pack for Visual Studio Code
+Auto Close Tag
+Better Comments
+Color Highlight
+ES7+ React/Redux/React-Native snippets
+indent-rainbow
+Live Server
+open in browser
+Prettier - Code formatter
