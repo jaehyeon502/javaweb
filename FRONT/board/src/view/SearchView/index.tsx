@@ -7,42 +7,45 @@ import { IPreviewItem } from "src/interface";
 import { BOARD_LIST } from "src/mock";
 import BoardListItem from "src/components/BoardListItem";
 import { getPageCount } from "src/utils";
+import { usePagingHook } from "src/hooks";
 
 export default function SearchView() {
 
-    const COUNT = 5;
+  const { content } = useParams();
+  const {viewList, pageNumber, boardList, onPageHandler, COUNT  } = usePagingHook(content as string);
 
-    const [ boardList, setBoardList ] = useState<IPreviewItem[]>([]);
-    const [ viewList, setViewList ] = useState<IPreviewItem[]>([]);
-    const [ pageNumber, setPageNumber ] =useState<number>(1);
-    const { content } = useParams();
+    // const COUNT = 5;
 
-    const onPageHandler = (page: number) => {
-        setPageNumber(page);
+    // const [ boardList, setBoardList ] = useState<IPreviewItem[]>([]);
+    // const [ viewList, setViewList ] = useState<IPreviewItem[]>([]);
+    // const [ pageNumber, setPageNumber ] =useState<number>(1);
 
-        const tmpList: IPreviewItem[] = [];
-        const startIndex = COUNT * (page - 1);
-        const endIndex = COUNT * page - 1;
+    // const onPageHandler = (page: number) => {
+    //     setPageNumber(page);
 
-        for ( let index = startIndex; index <= endIndex; index++ ) {
-            if (boardList.length < index +1) break;
-            tmpList.push(boardList[index]);
-        }
-        setViewList(tmpList);
-    }
+    //     const tmpList: IPreviewItem[] = [];
+    //     const startIndex = COUNT * (page - 1);
+    //     const endIndex = COUNT * page - 1;
 
-    useEffect(() => {
-        //# array.filter(요소 => 조건)
-        //? 특정한 조건에 부합하는 요소만 모아서 새로운 배열로 만들어 반환하는 메서드
-        //# string.inclues(검색할 문자열)
-        //? 해당 문자열에서 검색할 문자열이 존재한다면 true, 아니면 false를 반환하는 메서드
-        const tmp = BOARD_LIST.filter((board) => board.boardTitle.includes(content as string));
-        setBoardList(tmp);
-    }, [])
+    //     for ( let index = startIndex; index <= endIndex; index++ ) {
+    //         if (boardList.length < index +1) break;
+    //         tmpList.push(boardList[index]);
+    //     }
+    //     setViewList(tmpList);
+    // }
 
-    useEffect(() => {
-        onPageHandler(pageNumber);
-    }, [boardList]);
+    // useEffect(() => {
+    //     //# array.filter(요소 => 조건)
+    //     //? 특정한 조건에 부합하는 요소만 모아서 새로운 배열로 만들어 반환하는 메서드
+    //     //# string.includes(검색할 문자열)
+    //     //? 해당 문자열에서 검색할 문자열이 존재한다면 true, 아니면 false를 반환하는 메서드
+    //     const tmp = BOARD_LIST.filter((board) => board.boardTitle.includes(content as string));
+    //     setBoardList(tmp);
+    // }, [])
+
+    // useEffect(() => {
+    //     onPageHandler(pageNumber);
+    // }, [boardList]);
 
   return (
 
