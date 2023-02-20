@@ -1,4 +1,4 @@
-import { IPreviewItem } from "src/interface";
+import { IPreviewItem, IUser } from "src/interface";
 
 export const TOP3:IPreviewItem[] = [
     {
@@ -451,3 +451,12 @@ export const POPULAR_LIST: string[] = [
     '점심 메뉴', '저녁 메뉴', '아침 메뉴',
     '점심 메뉴', '저녁 메뉴', '아침 메뉴'
 ];
+
+export const USER: IUser = {
+    email: 'hyesung6516@naver.com',
+    password: 'qwer1234',
+    nickname: 'jaehyeon',
+    telNumber: '010-1234-5678',
+    address: '부산광역시 남구',
+    addressDetail: '용호동'
+};

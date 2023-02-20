@@ -12,21 +12,25 @@ import {
   IconButton,
 } from "@mui/material";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-
+import { USER } from "src/mock";
+import { IUser } from "src/interface";
+import { useUserStore } from "src/stores";
 
 export default function NavigationBar() {
-  const [content, setContent] = useState<string>('');
+  const [content, setContent] = useState<string>("");
   const navigator = useNavigate();
   const path = useLocation();
 
+  const { user } = useUserStore();
+
   const onSearchHandler = () => {
-    if (!content.trim()){
-      alert('검색어를 입력하세요.');
+    if (!content.trim()) {
+      alert("검색어를 입력하세요.");
       return;
     }
 
     navigator(`/board/search/${content}`);
-  }
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -48,10 +52,10 @@ export default function NavigationBar() {
           >
             Hoons Board
           </Typography>
-          <Box sx={{ display:'flex' }}>
-            <FormControl variant="outlined" sx={{ mr:'10px' }}>
+          <Box sx={{ display: "flex" }}>
+            <FormControl variant="outlined" sx={{ mr: "10px" }}>
               <OutlinedInput
-              size="small"
+                size="small"
                 type="text"
                 placeholder="검색어를 입력해주세요."
                 endAdornment={
@@ -64,15 +68,24 @@ export default function NavigationBar() {
                 onChange={(event) => setContent(event.target.value)}
               />
             </FormControl>
-            {path.pathname !== "/auth" && (
-              <Button
-                variant="contained"
-                sx={{ backgroundColor: "#000000" }}
-                onClick={() => navigator("/auth")}
-              >
-                로그인
-              </Button>
-            )}
+            {path.pathname !== "/auth" &&
+              (user ? (
+                <Button
+                  variant="outlined"
+                  sx={{ borderColor: "#000000", color: "#000000" }}
+                  onClick={() => navigator('/myPage')}
+                >
+                  마이페이지
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  sx={{ backgroundColor: "#000000" }}
+                  onClick={() => navigator("/auth")}
+                >
+                  로그인
+                </Button>
+              ))}
           </Box>
         </Toolbar>
       </AppBar>
