@@ -12,7 +12,7 @@ import { usePagingHook } from "src/hooks";
 export default function SearchView() {
 
   const { content } = useParams();
-  const {viewList, pageNumber, boardList, onPageHandler, COUNT  } = usePagingHook(content as string);
+  const {viewList, pageNumber, boardList, setBoardList, onPageHandler, COUNT  } = usePagingHook();
 
     // const COUNT = 5;
 
@@ -34,14 +34,14 @@ export default function SearchView() {
     //     setViewList(tmpList);
     // }
 
-    // useEffect(() => {
-    //     //# array.filter(요소 => 조건)
-    //     //? 특정한 조건에 부합하는 요소만 모아서 새로운 배열로 만들어 반환하는 메서드
-    //     //# string.includes(검색할 문자열)
-    //     //? 해당 문자열에서 검색할 문자열이 존재한다면 true, 아니면 false를 반환하는 메서드
-    //     const tmp = BOARD_LIST.filter((board) => board.boardTitle.includes(content as string));
-    //     setBoardList(tmp);
-    // }, [])
+    useEffect(() => {
+        //# array.filter(요소 => 조건)
+        //? 특정한 조건에 부합하는 요소만 모아서 새로운 배열로 만들어 반환하는 메서드
+        //# string.includes(검색할 문자열)
+        //? 해당 문자열에서 검색할 문자열이 존재한다면 true, 아니면 false를 반환하는 메서드
+        const tmp = BOARD_LIST.filter((board) => board.boardTitle.includes(content as string));
+        setBoardList(tmp);
+    }, [content])
 
     // useEffect(() => {
     //     onPageHandler(pageNumber);

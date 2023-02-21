@@ -7,8 +7,8 @@ import MyPageContents from './MyPageContents';
 export default function MyPageView() {
   return (
     <Box>
-        <MyPageHead></MyPageHead>
-        <MyPageContents></MyPageContents>
+        <MyPageHead />
+        <MyPageContents />
     </Box>
   )
 }
