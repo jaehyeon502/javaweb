@@ -5,7 +5,7 @@ export interface IPreviewItem{
     writerNickname: string;
     writeDate: string;
     boardTitle: string;
-    boardContent: String;
+    boardContent: string;
     likeCount: number;
     commentCount: number;
     viewCount: number;

@@ -6,6 +6,8 @@ import Main from "./view/Main";
 import Footer from "./view/Footer";
 import SearchView from "./view/SearchView";
 import MyPageView from "./view/MyPageView";
+import BoardWriteView from "./view/Board/BoardWriteView";
+import BoardUpdateView from "./view/Board/BoardUpdateView";
 
 //# Router 설계
 //? 1. 'main' path 작성 : '/' 
@@ -22,14 +24,14 @@ function App() {
     <>
       <NavigationBar />
       <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/auth" element={<AuthenticationView />} />
-        <Route path="/myPage" element={<MyPageView />} />
+        <Route path="/" element={(<Main />)} />
+        <Route path="/auth" element={(<AuthenticationView />)} />
+        <Route path="/myPage" element={(<MyPageView />)} />
         <Route path="/board">
-          <Route path="write" element={<></>} />
-          <Route path="search/:content" element={<SearchView />} />
-          <Route path="detail:boardNumber" element={<></>} />
-          <Route path="update/:boardNumber" element={<></>} />
+          <Route path="write" element={(<BoardWriteView />)} />
+          <Route path="search/:content" element={(<SearchView />)} />
+          <Route path="detail:boardNumber" element={(<></>)} />
+          <Route path="update/:boardNumber" element={(<BoardUpdateView />)} />
         </Route>
       </Routes>
       {path.pathname !== "/auth" && <Footer />}
