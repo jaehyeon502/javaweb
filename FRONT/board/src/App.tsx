@@ -8,6 +8,7 @@ import SearchView from "./view/SearchView";
 import MyPageView from "./view/MyPageView";
 import BoardWriteView from "./view/Board/BoardWriteView";
 import BoardUpdateView from "./view/Board/BoardUpdateView";
+import BoardDetailView from "./view/Board/BoardDetailView";
 
 //# Router 설계
 //? 1. 'main' path 작성 : '/' 
@@ -30,7 +31,7 @@ function App() {
         <Route path="/board">
           <Route path="write" element={(<BoardWriteView />)} />
           <Route path="search/:content" element={(<SearchView />)} />
-          <Route path="detail:boardNumber" element={(<></>)} />
+          <Route path="detail/:boardNumber" element={(<BoardDetailView />)} />
           <Route path="update/:boardNumber" element={(<BoardUpdateView />)} />
         </Route>
       </Routes>
