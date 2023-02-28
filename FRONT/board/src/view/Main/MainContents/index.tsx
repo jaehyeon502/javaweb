@@ -25,8 +25,8 @@ export default function MainContents() {
         const startIndex = COUNT * (page - 1);
         const endIndex = COUNT * page - 1;
 
-        for (let index = startIndex; index <= endIndex; index++){
-            if(boardList.length < index +1) break;
+        for (let index = startIndex; index <= endIndex; index++) {
+            if (boardList.length < index + 1) break;
             tmpList.push(boardList[index]);
         }
 
