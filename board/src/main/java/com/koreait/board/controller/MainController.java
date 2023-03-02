@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.koreait.board.dto.GetTestResponseDto;
 import com.koreait.board.dto.PostTestRequestDto;
+import com.koreait.board.dto.ResponseDto;
 import com.koreait.board.service.MainService;
 
 //? 해당 클래스를 REST API로 사용되는 Controller로 지정 할 수 있음
@@ -30,8 +31,8 @@ public class MainController {
 
 	//? HTTP 메서드 중 GET 방식의 요청에 대한 처리를 지정할 때 사용
 	@GetMapping("/")
-	public String getMain() {
-		String result =  mainService.getMain();
+	public ResponseDto<String> getMain() {
+		ResponseDto<String> result = mainService.getMain();
 		return result;
 	}
 	

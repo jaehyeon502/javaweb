@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.koreait.board.dto.GetTestResponseDto;
 import com.koreait.board.dto.PostTestRequestDto;
+import com.koreait.board.dto.ResponseDto;
 
 //# Service
 //? 실제 비즈니스 로직을 담당하는 레이어
@@ -13,8 +14,9 @@ import com.koreait.board.dto.PostTestRequestDto;
 @Service
 public class MainService {
 
-    public String getMain() {
-        return "Hello World";
+    public ResponseDto<String> getMain() {
+        ResponseDto<String> result = ResponseDto.setSuccess("success", "Hello World!");
+        return result;
     }
 
     public String getVariable(String data) {
@@ -45,6 +47,5 @@ public class MainService {
     public GetTestResponseDto getTest(){
         return new GetTestResponseDto(10,"Comment");
     }
-
 
 }
