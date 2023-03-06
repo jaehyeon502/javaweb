@@ -36,7 +36,7 @@ public class EmployeeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     //? 사원
     private int employeeNumber;
-    //? 직책
+    //? 직급
     private String position;
     //? 이름
     private String name;
