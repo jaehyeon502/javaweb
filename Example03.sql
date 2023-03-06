@@ -18,8 +18,38 @@ CREATE TABLE Employee(
     adress_detail TEXT NOT NULL COMMENT '상세주소',
     join_date DATE NOT NULL COMMENT '입사일',
     resignation_date DATE COMMENT '퇴사일',
-    department VARCHAR(15) DEFAULT '미정' COMMENT '부서',
+    department VARCHAR(5) COMMENT '부서코드',
     annual_income INT NOT NULL COMMENT '연봉',
     note TEXT COMMENT '비고'
 );
-employeeemployee
+
+CREATE TABLE Department(
+	department_code VARCHAR(5) PRIMARY KEY COMMENT '부서코드',
+    department_name VARCHAR(100) NOT NULL COMMENT '부서명',
+    cheif INT NOT NULL COMMENT '부서장',
+    tel_number VARCHAR(15) NOT NULL COMMENT '부서전화번호',
+    
+    CONSTRAINT department_fk_cheif
+    FOREIGN KEY (cheif)
+    REFERENCES Employee (employee_number)
+);
+
+DROP TABLE Department;
+
+ALTER TABLE Employee MODIFY COLUMN department VARCHAR(5) COMMENT '부서코드';
+
+ALTER TABLE Employee ADD CONSTRAINT employee_fk_department
+FOREIGN KEY (department)
+REFERENCES Department (department_code);
+
+
+
+
+
+
+
+
+
+
+
+
