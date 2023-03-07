@@ -7,6 +7,8 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 
+import com.koreait.board.entity.EmployeeEntity;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -48,11 +50,11 @@ public class PostHumanResourceRequestDto {
 
     //? 주소
     @NotBlank
-    private String adress;
+    private String address;
 
     //? 상세 주소
     @NotBlank
-    private String adressDetail;
+    private String addressDetail;
 
     //? 입사일
     @NotBlank
@@ -62,14 +64,13 @@ public class PostHumanResourceRequestDto {
     private String resignationDate;
 
     //? 부서코드
-    @NotBlank
-    @Length(min=0, max=5)
     private String department;
 
     //? 연봉
-    @NotBlank
+    @Min(0)
     private int annualIncome;
 
     //? 비고
     private String note;
+
 }
