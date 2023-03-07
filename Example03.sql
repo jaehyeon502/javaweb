@@ -25,7 +25,7 @@ CREATE TABLE Employee(
 
 CREATE TABLE Department(
 	department_code VARCHAR(5) PRIMARY KEY COMMENT '부서코드',
-    department_name VARCHAR(100) NOT NULL COMMENT '부서명',
+    name VARCHAR(100) NOT NULL COMMENT '부서명',
     cheif INT NOT NULL COMMENT '부서장',
     tel_number VARCHAR(15) NOT NULL COMMENT '부서전화번호',
     

@@ -22,7 +22,7 @@ public class DepartmentEntity {
     //? 부서코드
     private String departmentCode;
     //? 부서명
-    private String departmentName;
+    private String name;
     //? 부서장 사번
     private int cheif;
     //? 부서 전화번호
