@@ -83,7 +83,7 @@ public class MainService {
         //! findAll(); 
         //? 해당 테이블의 모든 레코드를 검색한 결과를 반환 
         List<ExampleEntity> entityList = exampleRepository.findAll();
-
+        
         //! save(entityInstance); 
         //? 해당 테이블에 특정 레코드를 삽입 혹은 수정
         //? Primary Key를 기준으로 Primary Key에 해당하는 레코드가 없으면 '삽입'
