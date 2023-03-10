@@ -18,7 +18,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.koreait.board.common.exception.UnauthorizationException;
 import com.koreait.board.provider.TokenProvider;
 
 @Component
