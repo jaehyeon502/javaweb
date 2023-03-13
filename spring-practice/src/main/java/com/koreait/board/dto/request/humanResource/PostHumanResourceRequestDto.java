@@ -2,12 +2,10 @@ package com.koreait.board.dto.request.humanResource;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 
-import com.koreait.board.entity.EmployeeEntity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
