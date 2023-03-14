@@ -66,12 +66,12 @@ function SecondPage() {
 
     const { nickName, telNumber, address, addressDetail } = useSignUpStore();
     const { setNickName, setTelNumber, setAddress, setAddressDetail } = useSignUpStore();
-    
+
     return (
         <Box>
-            <TextField sx={{mt:'40px'}} fullWidth label="닉네임*" variant='standard' value={nickName} onChange={(event) => setNickName(event.target.value)} />
-            <TextField sx={{mt:'40px'}} fullWidth label="휴대폰 번호*" variant='standard' value={telNumber} onChange={(event) => setTelNumber(event.target.value)} />
-            <FormControl fullWidth variant='standard' sx={{ mt:'40px' }}>
+            <TextField sx={{ mt: '40px' }} fullWidth label="닉네임*" variant='standard' value={nickName} onChange={(event) => setNickName(event.target.value)} />
+            <TextField sx={{ mt: '40px' }} fullWidth label="휴대폰 번호*" variant='standard' value={telNumber} onChange={(event) => setTelNumber(event.target.value)} />
+            <FormControl fullWidth variant='standard' sx={{ mt: '40px' }}>
                 <InputLabel>주소*</InputLabel>
                 <Input type="text" endAdornment={
                     <InputAdornment position="end">
@@ -80,11 +80,11 @@ function SecondPage() {
                         </IconButton>
                     </InputAdornment>
                 }
-                value={address}
-                onChange={(event) => setAddress(event.target.value)}
-                 />
+                    value={address}
+                    onChange={(event) => setAddress(event.target.value)}
+                />
             </FormControl>
-            <TextField sx={{mt:'40px'}} fullWidth label="상세 주소*" variant='standard' value={addressDetail} onChange={(event) => setAddressDetail(event.target.value)} />
+            <TextField sx={{ mt: '40px' }} fullWidth label="상세 주소*" variant='standard' value={addressDetail} onChange={(event) => setAddressDetail(event.target.value)} />
         </Box>
     )
 }
@@ -117,7 +117,7 @@ export default function SignUpCardView({ setLoginView }: Props) {
         setPage(2);
     };
 
-    const onSignUpHandler = () =>{
+    const onSignUpHandler = () => {
         if (!email || !password || !passwordCheck) {
             alert('모든 값을 입력하세요.');
             setPage(1);
@@ -128,7 +128,7 @@ export default function SignUpCardView({ setLoginView }: Props) {
             setPage(2);
             return;
         }
-        if (password !== passwordCheck){
+        if (password !== passwordCheck) {
             alert('비밀번호가 서로 다릅니다.');
             setPage(1);
             return;
@@ -136,9 +136,7 @@ export default function SignUpCardView({ setLoginView }: Props) {
 
         alert('회원가입 완료!')
 
-        const data = {
-            email, password, nickName, telNumber, address, addressDetail
-        }
+        const data = { email, password, nickName, telNumber, address, addressDetail }
 
         console.log(data);
 

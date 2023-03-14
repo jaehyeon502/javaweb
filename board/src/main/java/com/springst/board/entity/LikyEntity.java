@@ -4,7 +4,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.springst.board.entity.primaryKey.LikyPK;
+import com.springst.board.entity.primaryKey.LikyPk;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class LikyEntity {
 
     @EmbeddedId
-    private LikyPK userEmail;
+    private LikyPk userEmail;
 
     private String userProfileUrl;
     private String userNickname;
