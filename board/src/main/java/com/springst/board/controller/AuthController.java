@@ -1,8 +1,10 @@
 package com.springst.board.controller;
 
 import com.springst.board.common.constant.ApiPattern;
+import com.springst.board.dto.request.auth.SignInDto;
 import com.springst.board.dto.request.auth.SignUpDto;
 import com.springst.board.dto.response.ResponseDto;
+import com.springst.board.dto.response.auth.SignInResponseDto;
 import com.springst.board.dto.response.auth.SignUpResponseDto;
 import com.springst.board.service.AuthService;
 
@@ -22,10 +24,17 @@ public class AuthController {
     @Autowired private AuthService authService;
 
     private final String SIGN_UP = "/sign-up";
+    private final String SIGN_IN = "/sign-in";
 
     @PostMapping(SIGN_UP)
     public ResponseDto<SignUpResponseDto> signUp(@Valid @RequestBody SignUpDto requestBody) {
         ResponseDto<SignUpResponseDto> response = authService.signUp(requestBody);
+        return response;
+    }
+
+    @PostMapping(SIGN_IN)
+    public ResponseDto<SignInResponseDto> signIn(@Valid @RequestBody SignInDto requestBody) {
+        ResponseDto<SignInResponseDto> response = authService.signIn(requestBody);
         return response;
     }
     

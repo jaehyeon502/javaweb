@@ -9,6 +9,8 @@ import com.springst.board.entity.UserEntity;
 public interface UserRepository extends JpaRepository<UserEntity, String> {
     
     public boolean existsByEmail(String email);
-    public boolean existsBytelNumber(String telNumber);
+    public boolean existsByTelNumber(String telNumber);
+
+    public UserEntity findByEmail(String email);
 
 }
