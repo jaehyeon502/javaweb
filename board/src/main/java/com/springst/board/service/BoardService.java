@@ -12,6 +12,7 @@ import com.springst.board.dto.response.ResponseDto;
 import com.springst.board.dto.response.board.DeleteBoardResponseDto;
 import com.springst.board.dto.response.board.GetBoardResponseDto;
 import com.springst.board.dto.response.board.GetListResponseDto;
+import com.springst.board.dto.response.board.GetMyListResponseDto;
 import com.springst.board.dto.response.board.PatchBoardResponseDto;
 import com.springst.board.dto.response.board.PostBoardResponseDto;
 import com.springst.board.entity.BoardEntity;
@@ -92,6 +93,24 @@ public class BoardService {
 
     }
 
+    public ResponseDto<List<GetMyListResponseDto>> getMyList(String email) {
+
+        List<GetMyListResponseDto> data = null;
+
+        try{
+
+            List<BoardEntity> boardList = boardRepository.findByWriterEmailOrderByBoardWriteDatetimeDesc(email);
+            data = GetMyListResponseDto.copyList(boardList);
+
+        }catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+        }
+
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
+
+    }
+
     public ResponseDto<PatchBoardResponseDto> patchBoard(String email, PatchBoardDto dto) {
 
         PatchBoardResponseDto data = null;
@@ -128,6 +147,15 @@ public class BoardService {
         DeleteBoardResponseDto data = null;
 
         try{
+
+            BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
+            if (boardEntity == null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_BOARD);
+
+            boolean isEqualWriter = email.equals(boardEntity.getWriterEmail());
+            if (!isEqualWriter) return ResponseDto.setFailed(ResponseMessage.NOT_PERMISSION);
+
+            boardRepository.delete(boardEntity);
+            data = new DeleteBoardResponseDto(true);
 
         }catch (Exception exception) {
             exception.printStackTrace();
