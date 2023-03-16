@@ -10,5 +10,7 @@ import com.springst.board.entity.BoardEntity;
 @Repository
 public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
     
+    public BoardEntity findByBoardNumber(int boardNumber);
     public List<BoardEntity> findByOrderByBoardWriteDatetimeDesc();
+
 }

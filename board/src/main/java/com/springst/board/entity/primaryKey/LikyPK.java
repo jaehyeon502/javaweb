@@ -3,12 +3,10 @@ package com.springst.board.entity.primaryKey;
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 
 import lombok.Data;
 
 @Data
-@Embeddable
 public class LikyPk implements Serializable {
     @Column(name="user_email")
     private String userEmail;
