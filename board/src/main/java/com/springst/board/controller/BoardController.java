@@ -1,9 +1,12 @@
 package com.springst.board.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springst.board.common.constant.ApiPattern;
 import com.springst.board.dto.request.board.PostBoardDto;
 import com.springst.board.dto.response.ResponseDto;
+import com.springst.board.dto.response.board.GetListResponseDto;
 import com.springst.board.dto.response.board.PostBoardResponseDto;
 import com.springst.board.service.BoardService;
 
@@ -22,6 +26,7 @@ public class BoardController {
     @Autowired private BoardService boardService;
     
     private final String POST_BOARD = "";
+    private final String GET_LIST = "/list";
 
     @PostMapping(POST_BOARD)
     public ResponseDto<PostBoardResponseDto> postBoard(
@@ -30,6 +35,12 @@ public class BoardController {
         ) {
             ResponseDto<PostBoardResponseDto> response = boardService.postBoard(email, requestBody);
             return response;
+    }
+
+    @GetMapping(GET_LIST)
+    public ResponseDto<List<GetListResponseDto>> getList() {
+        ResponseDto<List<GetListResponseDto>> response = boardService.getList();
+        return response;
     }
 
 }
