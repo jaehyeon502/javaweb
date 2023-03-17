@@ -1,6 +1,5 @@
 package chapter01;
 
-import java.io.InputStream;
 import java.util.Scanner;
 
 public class study {
@@ -41,7 +40,7 @@ public class study {
 		System.out.print(e - hande);
 		System.out.print(f - handf);
 		
-		
+		sc.close();
 		
 	}//main end
 

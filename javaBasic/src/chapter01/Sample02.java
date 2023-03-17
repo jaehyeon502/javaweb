@@ -56,6 +56,7 @@ public class Sample02 {
 		if (!password.equals(passwordCheck)) {
 			System.out.println("비밀번호가 서로 다릅니다.");
 			return;
+			
 		}
 		
 		// 4. 입력받은 데이터를 메모리에 저장 및 출력 후 프로그램 종료
@@ -64,7 +65,7 @@ public class Sample02 {
 		
 		
 		
-		
+		sc.close();
 		
 		
 		
