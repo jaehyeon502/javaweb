@@ -16,6 +16,8 @@ import com.springst.board.dto.response.board.GetBoardResponseDto;
 import com.springst.board.dto.response.board.GetListResponseDto;
 import com.springst.board.dto.response.board.GetMyListResponseDto;
 import com.springst.board.dto.response.board.GetSearchListResponseDto;
+import com.springst.board.dto.response.board.GetTop15RelatedSearchWordResponseDto;
+import com.springst.board.dto.response.board.GetTop15SearchWordResponseDto;
 import com.springst.board.dto.response.board.LikeResponseDto;
 import com.springst.board.dto.response.board.PatchBoardResponseDto;
 import com.springst.board.dto.response.board.PostBoardResponseDto;
@@ -26,6 +28,8 @@ import com.springst.board.entity.LikyEntity;
 import com.springst.board.entity.RelatedSearchWordEntity;
 import com.springst.board.entity.SearchWordLogEntity;
 import com.springst.board.entity.UserEntity;
+import com.springst.board.entity.resultSet.RelatedSearchWordResultSet;
+import com.springst.board.entity.resultSet.SearchWordResultSet;
 import com.springst.board.repository.BoardRepository;
 import com.springst.board.repository.CommentRepository;
 import com.springst.board.repository.LikyRepository;
@@ -220,6 +224,41 @@ public class BoardService {
             exception.printStackTrace();
             return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
         }
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
+
+    }
+
+    public ResponseDto<GetTop15SearchWordResponseDto> getTop15SearchWord() {
+        GetTop15SearchWordResponseDto data = null;
+
+        try{
+
+            List<SearchWordResultSet> searchWordList = searchWordLogRepository.findTop15();
+            data = GetTop15SearchWordResponseDto.copyList(searchWordList);
+
+        }catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+        }
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
+    }
+
+    public ResponseDto<GetTop15RelatedSearchWordResponseDto> getTop15RelatedSearchWord(String searchWord) {
+
+        GetTop15RelatedSearchWordResponseDto data = null;
+        
+        try{
+
+            List<RelatedSearchWordResultSet> relatedSearchWordList = 
+            relatedSearchWordRepository.findTop15(searchWord);
+
+            data = GetTop15RelatedSearchWordResponseDto.copyList(relatedSearchWordList);
+
+        }catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+        }
+
         return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
 
     }
