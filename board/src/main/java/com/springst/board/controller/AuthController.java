@@ -8,6 +8,8 @@ import com.springst.board.dto.response.auth.SignInResponseDto;
 import com.springst.board.dto.response.auth.SignUpResponseDto;
 import com.springst.board.service.AuthService;
 
+import io.swagger.annotations.Api;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping(ApiPattern.AUTH)
+@Api(description = "인증 모듈")
 public class AuthController {
     
     @Autowired private AuthService authService;
