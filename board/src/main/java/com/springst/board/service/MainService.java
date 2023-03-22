@@ -25,7 +25,7 @@ public class MainService {
     @Scheduled(cron="2 * * * * ?")
     public void scheduleCronJob() {
         try{
-            crawlling();
+            // crawlling();
         }catch (Exception exception) {
             exception.printStackTrace();
         }
