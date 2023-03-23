@@ -13,10 +13,10 @@ public class MailProvider {
     public boolean sendMail() {
         try{
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-            simpleMailMessage.setFrom("보내는 사람의 메일 주소");
-            simpleMailMessage.setTo("받는 사람의 메일 주소");
+            simpleMailMessage.setFrom("122030@donga.ac.kr");
+            simpleMailMessage.setTo("hyesung6516@naver.com");
             simpleMailMessage.setSubject("제목");
-            simpleMailMessage.setText("html 형식의 내용");
+            simpleMailMessage.setText("<p style='color=red;'>html 형식의 내용</p>");
             javaMailSender.send(simpleMailMessage);
         }catch (Exception exception) {
             exception.printStackTrace();
