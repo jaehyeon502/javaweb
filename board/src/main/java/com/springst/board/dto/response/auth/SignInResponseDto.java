@@ -25,6 +25,6 @@ public class SignInResponseDto {
         this.address = userEntity.getAddress();
         this.profile = userEntity.getProfile();
         this.token = token;
-        this.expiredTime = 3600000;
+        this.expiredTime = 3600000*4;
     }
 }
