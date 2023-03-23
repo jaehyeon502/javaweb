@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GetTop15SearchWordResponseDto {
-    @ApiModelProperty(value="상위 15개의 인기 검색어 리스트", example="['example1', 'example2', 'example3' ...]", required=true)
+    @ApiModelProperty(value="상위 15개의 인기 검색어 리스트", example="['example1', 'example2', 'example3']", required=true)
     private List<String> top15SearchWordList;
 
 
