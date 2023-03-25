@@ -28,6 +28,7 @@ import com.springst.board.dto.response.board.GetMyListResponseDto;
 import com.springst.board.dto.response.board.GetSearchListResponseDto;
 import com.springst.board.dto.response.board.GetTop15RelatedSearchWordResponseDto;
 import com.springst.board.dto.response.board.GetTop15SearchWordResponseDto;
+import com.springst.board.dto.response.board.GetTop3ListResponseDto;
 import com.springst.board.dto.response.board.LikeResponseDto;
 import com.springst.board.dto.response.board.PatchBoardResponseDto;
 import com.springst.board.dto.response.board.PostBoardResponseDto;
@@ -54,6 +55,7 @@ public class BoardController {
     private final String GET_MYLIST = "/my-list";
     private final String GET_SEARCH_LIST = "/search-list/{searchWord}";
     private final String GET_SEARCH_LIST_PREVIOUS = "/search-list/{searchWord}/{previousSearchWord}";
+    private final String GET_TOP3_LIST = "/top3-list";
     private final String GET_TOP15_SEARCH_WORD = "/top15-search-word";
     private final String GET_TOP15_RELATED_SEARCH_WORD = "/top15-related-search-word/{searchWord}";
 
@@ -126,6 +128,13 @@ public class BoardController {
         @PathVariable(name="previousSearchWord", required=false) String previousSearchWord
     ){
         ResponseDto<List<GetSearchListResponseDto>> response = boardService.getSearchList(searchWord, previousSearchWord);
+        return response;
+    }
+
+    @ApiOperation(value="좋아요 기준 상위 3개 게시물 리스트 가져오기", notes="요청을 하면, 좋아요 수 기준으로 상위 3개 게시물 리스트를 반환,실패시 실패 메세지를 반환")
+    @GetMapping(GET_TOP3_LIST)
+    public ResponseDto<List<GetTop3ListResponseDto>> getTop3List() {
+        ResponseDto<List<GetTop3ListResponseDto>> response = boardService.getTop3List();
         return response;
     }
 

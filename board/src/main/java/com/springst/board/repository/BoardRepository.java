@@ -11,9 +11,11 @@ import com.springst.board.entity.BoardEntity;
 public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
     
     public BoardEntity findByBoardNumber(int boardNumber);
+
     public List<BoardEntity> findByOrderByBoardWriteDatetimeDesc();
     public List<BoardEntity> findByWriterEmailOrderByBoardWriteDatetimeDesc(String writerEmail);
 
     public List<BoardEntity> findByBoardTitleContainsOrBoardContentContainsOrderByBoardWriteDatetimeDesc(String boardTitle, String boardContent);
     
+    public List<BoardEntity> findTop3ByOrderByLikeCountDesc();
 }
