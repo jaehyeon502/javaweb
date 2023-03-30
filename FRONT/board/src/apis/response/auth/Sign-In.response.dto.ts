@@ -2,7 +2,7 @@ interface ResponseDto {
     address: string;
     email: string;
     expiredTime: number;
-    nickName: string;
+    nickname: string;
     profile: string | null;
     telNumber: string;
     token: string;

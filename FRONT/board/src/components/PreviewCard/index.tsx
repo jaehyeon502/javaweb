@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Avatar, Box, Card, CardActionArea, Typography } from '@mui/material'
-import { IPreviewItem } from 'src/interface'
+import { IPreviewItem } from 'src/interfaces'
 import BoardListItem from '../BoardListItem';
 import { useNavigate } from 'react-router-dom';
 

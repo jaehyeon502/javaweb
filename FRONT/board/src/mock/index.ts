@@ -1,4 +1,4 @@
-import { ICommentItem, ILikeUser, IPreviewItem, IUser } from "src/interface";
+import { ICommentItem, ILikeUser, IPreviewItem, IUser } from "src/interfaces";
 
 export const TOP3:IPreviewItem[] = [
     {

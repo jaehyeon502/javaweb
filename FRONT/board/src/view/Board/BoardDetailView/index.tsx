@@ -22,7 +22,7 @@ import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutl
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useNavigate, useParams } from "react-router-dom";
 import { BOARD_LIST, COMMENT_LIST, LIKE_LIST } from "src/mock";
-import { ICommentItem, ILikeUser, IPreviewItem } from "src/interface";
+import { ICommentItem, ILikeUser, IPreviewItem } from "src/interfaces";
 import { useUserStore } from "src/stores";
 import LikeListItem from "src/components/LikeListItem";
 import CommentListItem from "src/components/CommentListItem";

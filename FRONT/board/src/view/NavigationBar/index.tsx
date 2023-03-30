@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { USER } from "src/mock";
-import { IUser } from "src/interface";
+import { IUser } from "src/interfaces";
 import { useUserStore } from "src/stores";
 
 export default function NavigationBar() {

@@ -1,7 +1,7 @@
 import { Box, Card, Grid, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import PreViewCard from 'src/components/PreviewCard'
-import { IPreviewItem } from 'src/interface';
+import { IPreviewItem } from 'src/interfaces';
 
 import { TOP3 } from 'src/mock'
 

@@ -10,7 +10,7 @@ import { useUserStore } from "src/stores";
 import BoardListItem from "src/components/BoardListItem";
 import { getPageCount } from "src/utils";
 import { useNavigate } from "react-router-dom";
-import { IPreviewItem } from "src/interface";
+import { IPreviewItem } from "src/interfaces";
 
 export default function MyPageContents() {
 

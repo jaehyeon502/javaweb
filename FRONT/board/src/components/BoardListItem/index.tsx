@@ -1,6 +1,6 @@
 import React from 'react'
 import { Avatar, Box, Card, CardActionArea, Typography } from '@mui/material';
-import { IPreviewItem } from 'src/interface';
+import { IPreviewItem } from 'src/interfaces';
 import { useNavigate } from 'react-router-dom';
 import { POPULAR_LIST } from 'src/mock';
 

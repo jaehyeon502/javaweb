@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Box, Typography, Grid, Pagination, Stack } from "@mui/material";
 import PopularCard from "src/components/PopularCard";
 import { useParams } from "react-router-dom";
-import { IPreviewItem } from "src/interface";
+import { IPreviewItem } from "src/interfaces";
 import { BOARD_LIST } from "src/mock";
 import BoardListItem from "src/components/BoardListItem";
 import { getPageCount } from "src/utils";

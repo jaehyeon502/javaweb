@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ICommentItem, IPreviewItem } from "src/interface";
+import { ICommentItem, IPreviewItem } from "src/interfaces";
 import { BOARD_LIST } from "src/mock";
 
 const usePagingHook = (COUNT: number) => {

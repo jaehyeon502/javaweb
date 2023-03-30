@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Box, Avatar, Typography, Divider } from '@mui/material'
-import { ICommentItem } from 'src/interface'
+import { ICommentItem } from 'src/interfaces'
 
 interface Props{
     item: ICommentItem;
