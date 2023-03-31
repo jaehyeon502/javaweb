@@ -22,36 +22,62 @@ import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutl
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useNavigate, useParams } from "react-router-dom";
 import { BOARD_LIST, COMMENT_LIST, LIKE_LIST } from "src/mock";
-import { ICommentItem, ILikeUser, IPreviewItem } from "src/interfaces";
+import { Board, Comment, ICommentItem, ILikeUser, IPreviewItem, Liky } from "src/interfaces";
 import { useUserStore } from "src/stores";
 import LikeListItem from "src/components/LikeListItem";
 import CommentListItem from "src/components/CommentListItem";
 import { usePagingHook } from "src/hooks";
 import { getPageCount } from "src/utils";
+import axios, { AxiosResponse } from "axios";
+import ResponseDto from "src/apis/response";
+import { GetBoardResponseDto } from "src/apis/response/board";
+import { resourceLimits } from "worker_threads";
+import { GET_BOARD_URL } from "src/constants/api";
 
 export default function BoardDetailView() {
   const [anchorElement, setAnchorElement] = useState<null | HTMLElement>(null);
   const [menuFlag, setMenuFlag] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
-  const [board, setBoard] = useState<null | IPreviewItem>(null);
+
+  const [board, setBoard] = useState<Board | null>(null);
+
   const [likeStatus, setLikeStatus] = useState<boolean>(false);
   const [openLike, setOpenLike] = useState<boolean>(false);
-  const [likeList, setLikeList] = useState<ILikeUser[]>([]);
+  const [likeList, setLikeList] = useState<Liky[]>([]);
+  
   const [openComment, setOpenComment] = useState<boolean>(false);
+  const [ commentList, setCommentList ] = useState<Comment[]>([]);
 
-  const {
-    boardList,
-    viewList,
-    pageNumber,
-    setBoardList,
-    onPageHandler,
-    COUNT,
-  } = usePagingHook(3);
+  const { boardList, viewList, pageNumber, setBoardList, onPageHandler, COUNT } = usePagingHook(3);
 
   const { boardNumber } = useParams();
   const navigator = useNavigate();
 
   const { user } = useUserStore();
+
+  const getBoard = () => {
+    axios.get(GET_BOARD_URL(boardNumber as string))
+        .then((response) => getBoardResponseHandler(response))
+        .catch((error) => getBoardErrorHandler(error));
+  }
+
+  const getBoardResponseHandler = (response: AxiosResponse<any, any>) => {
+    const { result, message, data } = response.data as ResponseDto<GetBoardResponseDto>;
+    if (!result || data === null) {
+      alert(message);
+      navigator('/');
+      return;
+    }
+    const { board, commentList, likeList } = data;
+    setBoard(board);
+    setCommentList(commentList);
+    setLikeList(likeList);
+  }
+
+  const getBoardErrorHandler = (error: any) => {
+    console.log(error.message);
+  }
+
 
   const onMenuClickHandler = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorElement(event.currentTarget);
