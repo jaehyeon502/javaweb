@@ -4,13 +4,7 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import SearchIcon from "@mui/icons-material/Search";
-import {
-  Button,
-  FormControl,
-  InputAdornment,
-  OutlinedInput,
-  IconButton,
-} from "@mui/material";
+import { Button, FormControl, InputAdornment, OutlinedInput, IconButton, } from "@mui/material";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { USER } from "src/mock";
 import { IUser } from "src/interfaces";

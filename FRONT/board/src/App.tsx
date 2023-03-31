@@ -1,7 +1,10 @@
 import "./App.css";
+
+import { useEffect } from 'react';
+import { Routes, Route, useLocation } from "react-router-dom";
+
 import AuthenticationView from "./view/AuthenticationView";
 import NavigationBar from "./view/NavigationBar";
-import { Routes, Route, useLocation } from "react-router-dom";
 import Main from "./view/Main";
 import Footer from "./view/Footer";
 import SearchView from "./view/SearchView";
@@ -9,6 +12,12 @@ import MyPageView from "./view/MyPageView";
 import BoardWriteView from "./view/Board/BoardWriteView";
 import BoardUpdateView from "./view/Board/BoardUpdateView";
 import BoardDetailView from "./view/Board/BoardDetailView";
+import { useCookies } from "react-cookie";
+import { useUserStore } from "./stores";
+import axios, { AxiosResponse } from "axios";
+import ResponseDto from "./apis/response";
+import { authorizationHeader, GET_USER_URL } from "./constants/api";
+import { GetUserResponseDto } from "./apis/response/user";
 
 //# Router 설계
 //? 1. 'main' path 작성 : '/' 
@@ -20,6 +29,33 @@ import BoardDetailView from "./view/Board/BoardDetailView";
 //? 7. 'boardUpdate' path 작성 : '/board/update/:boardNumber'
 function App() {
   const path = useLocation();
+  const { setUser } = useUserStore();
+  const [ cookies ] = useCookies();
+
+  const getUser = (accessToken: string) => {
+    axios.get(GET_USER_URL, authorizationHeader(accessToken))
+        .then((response) => getUserResponseHandler(response))
+        .catch((error) => getUserErrorHandler(error));
+  }
+
+  const getUserResponseHandler = (response: AxiosResponse<any, any>) => {
+    const { result, message, data } = response.data as ResponseDto<any>;
+    if (!result || !data ) {
+      return;
+    }
+    const user = data as GetUserResponseDto;
+    setUser(user);
+  }
+
+  const getUserErrorHandler = (error: any) => {
+    console.log(error.message);
+  }
+
+  useEffect(() => {
+    const accessToken = cookies.accessToken;
+    if (accessToken) getUser(accessToken);
+
+  },[])
 
   return (
     <>

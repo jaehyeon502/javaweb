@@ -3,10 +3,11 @@ import { Avatar, Box, Card, CardActionArea, Typography } from '@mui/material';
 import { IPreviewItem } from 'src/interfaces';
 import { useNavigate } from 'react-router-dom';
 import { POPULAR_LIST } from 'src/mock';
+import { GetListResponseDto, GetMyListResponseDto, GetSearchListResponseDto } from 'src/apis/response/board';
 
 
 interface Props {
-  item: IPreviewItem
+  item: GetListResponseDto | GetSearchListResponseDto | GetMyListResponseDto;
 }
 
 export default function BoardListItem({ item }: Props) {
@@ -19,11 +20,11 @@ export default function BoardListItem({ item }: Props) {
         <Box>
           <Box sx={{ display: 'flex' }}>
             <Box sx={{ mr: '8px' }}>
-              <Avatar alt={item.writerNickname} src={item.writerProfile} />
+              <Avatar alt={item.writerNickname} src={item.writerProfileUrl ? item.writerProfileUrl : ''} />
             </Box>
             <Box>
               <Typography sx={{ fontSize: '12px', fontWeight: '500', color: '#666' }}>{item.writerNickname}</Typography>
-              <Typography sx={{ mt: '2px', fontSize: '12px', fontWeight: '400', color: 'rgba(0,0,0,0.5)' }}>{item.writeDate}</Typography>
+              <Typography sx={{ mt: '2px', fontSize: '12px', fontWeight: '400', color: 'rgba(0,0,0,0.5)' }}>{item.boardWriteDatetime}</Typography>
             </Box>
           </Box>
           <Box sx={{ mt: '16px', mb: '16px' }}>
@@ -34,9 +35,9 @@ export default function BoardListItem({ item }: Props) {
             <Typography sx={{ fontSize: '12px', fontWeight: '400', color: 'rgba(0,0,0,0.5)' }}>{`댓글 ${item.commentCount} · 좋아요 ${item.likeCount} · 조회수 ${item.viewCount}`}</Typography>
           </Box>
         </Box>
-        {item.img && (
+        {item.boardImgUrl && (
           <Box>
-            <Box component='img' src={item.img} sx={{ height: '152px', width: '152px', borderRadius: '5%' }} />
+            <Box component='img' src={item.boardImgUrl} sx={{ height: '152px', width: '152px', borderRadius: '5%' }} />
           </Box>
         )}
       </CardActionArea>

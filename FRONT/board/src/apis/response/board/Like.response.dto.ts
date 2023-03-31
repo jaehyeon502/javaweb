@@ -1,35 +1,35 @@
-interface ResponseDto {
+interface Dto {
   board: {
-    boardContent: "string";
-    boardImgUrl: "string";
-    boardNumber: 0;
-    boardTitle: "string";
-    boardWriteDatetime: "string";
-    commentCount: 0;
-    likeCount: 0;
-    viewCount: 0;
-    writerEmail: "string";
-    writerNickname: "string";
-    writerProfile: "string";
+    boardContent: string;
+    boardImgUrl: string | null;
+    boardNumber: number;
+    boardTitle: string;
+    boardWriteDatetime: string;
+    commentCount: number;
+    likeCount: number;
+    viewCount: number;
+    writerEmail: string;
+    writerNickname: string;
+    writerProfileUrl: string | null;
   };
   commentList: [
     {
-      boardNumber: 0;
-      commentContent: "string";
-      commentNumber: 0;
-      writeDatetime: "string";
-      writerEmail: "string";
-      writerNickname: "string";
-      writerProfileUrl: "string";
+      boardNumber: number;
+      commentContent: string;
+      commentNumber: number;
+      writeDatetime: string;
+      writerEmail: string;
+      writerNickname: string;
+      writerProfileUrl: string | null;
     }
   ];
   likeList: [
     {
-      boardNumber: 0;
-      userEmail: "string";
-      userNickname: "string";
-      userProfileUrl: "string";
+      boardNumber: number;
+      userEmail: string;
+      userNickname: string;
+      userProfileUrl: string | null;
     }
   ];
 }
-export default ResponseDto;
+export default Dto;

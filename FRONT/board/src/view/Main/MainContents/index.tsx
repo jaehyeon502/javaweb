@@ -8,13 +8,33 @@ import { IPreviewItem } from "src/interfaces";
 import { BOARD_LIST } from "src/mock";
 import { getPageCount } from "src/utils";
 import { usePagingHook } from "src/hooks";
+import axios, { AxiosResponse } from "axios";
+import ResponseDto from "src/apis/response";
+import { GetListResponseDto } from "src/apis/response/board";
+import { GET_LIST_URL } from "src/constants/api";
 
 export default function MainContents() {
 
   const {viewList, pageNumber, boardList, setBoardList, onPageHandler, COUNT  } = usePagingHook(5);
 
+  const getList = () => {
+    axios.get(GET_LIST_URL)
+        .then((response) => getListResponseHandler(response))
+        .catch((error) => getListErrorHandler(error));
+  }
+
+  const getListResponseHandler = (response: AxiosResponse<any, any>) => {
+    const { result, message, data } = response.data as ResponseDto<GetListResponseDto[]>;
+    if (!result || data === null) return;
+    setBoardList(data);
+  }
+
+  const getListErrorHandler = (error: any) => {
+    console.log(error.message);
+  }
+
   useEffect(() => {
-    setBoardList(BOARD_LIST);
+    getList();
   }, [])
 
     //? 한 페이지에 5개의 게시물을 보여주고자 할 때
@@ -33,7 +53,7 @@ export default function MainContents() {
           <Grid item sm={12} md={8}>
             <Stack spacing={2}>
               {viewList.map((boardItem) => (
-                <BoardListItem item={boardItem as IPreviewItem} />
+                <BoardListItem item={boardItem as GetListResponseDto} />
               ))}
             </Stack>
           </Grid>

@@ -12,7 +12,7 @@ import {
   Stack,
   Pagination,
   Input,
-  Button
+  Button,
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -30,16 +30,23 @@ import { usePagingHook } from "src/hooks";
 import { getPageCount } from "src/utils";
 
 export default function BoardDetailView() {
-  const [ anchorElement, setAnchorElement ] = useState<null | HTMLElement>(null);
-  const [ menuFlag, setMenuFlag ] = useState<boolean>(false);
-  const [ menuOpen, setMenuOpen ] = useState<boolean>(false);
-  const [ board, setBoard ] = useState<null | IPreviewItem>(null);
-  const [ likeStatus, setLikeStatus ] = useState<boolean>(false);
-  const [ openLike, setOpenLike ] = useState<boolean>(false);
-  const [ likeList, setLikeList ] = useState<ILikeUser[]>([]);
-  const [ openComment, setOpenComment ] = useState<boolean>(false);
+  const [anchorElement, setAnchorElement] = useState<null | HTMLElement>(null);
+  const [menuFlag, setMenuFlag] = useState<boolean>(false);
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const [board, setBoard] = useState<null | IPreviewItem>(null);
+  const [likeStatus, setLikeStatus] = useState<boolean>(false);
+  const [openLike, setOpenLike] = useState<boolean>(false);
+  const [likeList, setLikeList] = useState<ILikeUser[]>([]);
+  const [openComment, setOpenComment] = useState<boolean>(false);
 
-  const { boardList, viewList, pageNumber, setBoardList, onPageHandler, COUNT } = usePagingHook(3);
+  const {
+    boardList,
+    viewList,
+    pageNumber,
+    setBoardList,
+    onPageHandler,
+    COUNT,
+  } = usePagingHook(3);
 
   const { boardNumber } = useParams();
   const navigator = useNavigate();
@@ -228,8 +235,10 @@ export default function BoardDetailView() {
         <Box sx={{ mt: "20px" }}>
           <Card variant="outlined" sx={{ p: "20px" }}>
             <Typography>좋아요 {likeList.length}</Typography>
-            <Box sx={{ m: '20px 0'}} >
-              { likeList.map((likeUser) => (<LikeListItem likeUser={likeUser} />)) }
+            <Box sx={{ m: "20px 0" }}>
+              {likeList.map((likeUser) => (
+                <LikeListItem likeUser={likeUser} />
+              ))}
             </Box>
           </Card>
         </Box>
@@ -237,24 +246,45 @@ export default function BoardDetailView() {
         <></>
       )}
       <Box>
-        { openComment && (
+        {openComment && (
           <Box>
-            <Box sx={{ p:'20px'}}>
-              <Typography sx={{ fontSize:'16px', fontWeight:500 }}>댓글 {boardList.length}</Typography>
-              <Stack sx={{ p: '20px 0' }} spacing={3.75}>
-                {viewList.map((commentItem) => (<CommentListItem item={commentItem as ICommentItem}/>))}
+            <Box sx={{ p: "20px" }}>
+              <Typography sx={{ fontSize: "16px", fontWeight: 500 }}>
+                댓글 {boardList.length}
+              </Typography>
+              <Stack sx={{ p: "20px 0" }} spacing={3.75}>
+                {viewList.map((commentItem) => (
+                  <CommentListItem item={commentItem as ICommentItem} />
+                ))}
               </Stack>
             </Box>
 
             <Divider />
-            <Box sx={{ p:'20px 0',display:'flex', justifyContent:'center' }}>
-              <Pagination page={pageNumber} count={getPageCount(boardList, COUNT)} onChange={(event, value) => onPageHandler(value)} />
+            <Box
+              sx={{ p: "20px 0", display: "flex", justifyContent: "center" }}
+            >
+              <Pagination
+                page={pageNumber}
+                count={getPageCount(boardList, COUNT)}
+                onChange={(event, value) => onPageHandler(value)}
+              />
             </Box>
             <Box>
-              <Card variant="outlined" sx={{ p:'20px' }}>
+              <Card variant="outlined" sx={{ p: "20px" }}>
                 <Input minRows={3} multiline disableUnderline fullWidth />
-                <Box sx={{ display:'flex', justifyContent:'end' }}>
-                  <Button sx={{ p:' 4px 23px', fontSize:'14px', fontWeight:400, backgroundColor:'#000', color:'#fff', borderRadius:'46px' }}>댓글달기</Button>
+                <Box sx={{ display: "flex", justifyContent: "end" }}>
+                  <Button
+                    sx={{
+                      p: " 4px 23px",
+                      fontSize: "14px",
+                      fontWeight: 400,
+                      backgroundColor: "#000",
+                      color: "#fff",
+                      borderRadius: "46px",
+                    }}
+                  >
+                    댓글달기
+                  </Button>
                 </Box>
               </Card>
             </Box>
