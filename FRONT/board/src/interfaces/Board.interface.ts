@@ -9,7 +9,7 @@ interface Board {
     viewCount: number;
     writerEmail: string;
     writerNickname: string;
-    writerProfile?: string | null;
+    writerProfileUrl?: string | null;
 }
 
 export default Board;

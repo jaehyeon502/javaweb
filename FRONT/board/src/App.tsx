@@ -54,8 +54,7 @@ function App() {
   useEffect(() => {
     const accessToken = cookies.accessToken;
     if (accessToken) getUser(accessToken);
-
-  },[])
+  },[path])
 
   return (
     <>

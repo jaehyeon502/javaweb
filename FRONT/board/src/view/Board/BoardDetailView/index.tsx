@@ -1,19 +1,6 @@
 import React, { MouseEvent, useEffect, useState } from "react";
 
-import {
-  Avatar,
-  Box,
-  Card,
-  Divider,
-  IconButton,
-  Menu,
-  MenuItem,
-  Typography,
-  Stack,
-  Pagination,
-  Input,
-  Button,
-} from "@mui/material";
+import { Avatar, Box, Card, Divider, IconButton, Menu, MenuItem, Typography, Stack, Pagination, Input, Button } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
@@ -21,8 +8,7 @@ import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDown
 import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useNavigate, useParams } from "react-router-dom";
-import { BOARD_LIST, COMMENT_LIST, LIKE_LIST } from "src/mock";
-import { Board, Comment, ICommentItem, ILikeUser, IPreviewItem, Liky } from "src/interfaces";
+import { Board, Comment, Liky } from "src/interfaces";
 import { useUserStore } from "src/stores";
 import LikeListItem from "src/components/LikeListItem";
 import CommentListItem from "src/components/CommentListItem";
@@ -31,7 +17,6 @@ import { getPageCount } from "src/utils";
 import axios, { AxiosResponse } from "axios";
 import ResponseDto from "src/apis/response";
 import { GetBoardResponseDto } from "src/apis/response/board";
-import { resourceLimits } from "worker_threads";
 import { GET_BOARD_URL } from "src/constants/api";
 
 export default function BoardDetailView() {
@@ -46,7 +31,8 @@ export default function BoardDetailView() {
   const [likeList, setLikeList] = useState<Liky[]>([]);
   
   const [openComment, setOpenComment] = useState<boolean>(false);
-  const [ commentList, setCommentList ] = useState<Comment[]>([]);
+  
+  let isLoad = false;
 
   const { boardList, viewList, pageNumber, setBoardList, onPageHandler, COUNT } = usePagingHook(3);
 
@@ -70,8 +56,11 @@ export default function BoardDetailView() {
     }
     const { board, commentList, likeList } = data;
     setBoard(board);
-    setCommentList(commentList);
+    // 댓글 리스트를 3개까지 보여주도록 하는 로직
+    setBoardList(commentList);
     setLikeList(likeList);
+    const owner = user !== null && board.writerEmail === user.email;
+    setMenuFlag(owner);
   }
 
   const getBoardErrorHandler = (error: any) => {
@@ -90,28 +79,14 @@ export default function BoardDetailView() {
   };
 
   useEffect(() => {
+    if (isLoad) return;
     //? boardNumber가 존재하는지 검증
     if (!boardNumber) {
       navigator("/");
       return;
     }
-    //? BOARD_LIST에서 boardNumber에 해당하는 board를 가져옴
-    const board = BOARD_LIST.find(
-      (boardItem) => boardItem.boardNumber === parseInt(boardNumber)
-    );
-    //? 검색한 결과가 존재하는지 검증
-    if (!board) {
-      navigator("/");
-      return;
-    }
-
-    setLikeList(LIKE_LIST);
-
-    const owner = user !== null && user.nickname === board.writerNickname;
-    setMenuFlag(owner);
-    setBoard(board);
-
-    setBoardList(COMMENT_LIST);
+    isLoad = true;
+    getBoard();
   }, []);
 
   return (
@@ -130,7 +105,7 @@ export default function BoardDetailView() {
           >
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Avatar
-                src={board?.writerProfile}
+                src={board?.writerProfileUrl ? board?.writerProfileUrl : ''}
                 sx={{ width: "32px", height: "32px", mr: "8px" }}
               />
               <Typography
@@ -147,7 +122,7 @@ export default function BoardDetailView() {
               <Typography
                 sx={{ fontSize: "16px", fontWeight: "400", opacity: "0.4" }}
               >
-                {board?.writeDate}
+                {board?.boardWriteDatetime}
               </Typography>
             </Box>
             {menuFlag && (
@@ -182,11 +157,11 @@ export default function BoardDetailView() {
           >
             {board?.boardContent}
           </Typography>
-          {board?.img && (
+          {board?.boardImgUrl && (
             <Box
               sx={{ width: "100%", mt: "20px" }}
               component="img"
-              src={board?.img}
+              src={board?.boardImgUrl}
               alt=""
             />
           )}
@@ -280,7 +255,7 @@ export default function BoardDetailView() {
               </Typography>
               <Stack sx={{ p: "20px 0" }} spacing={3.75}>
                 {viewList.map((commentItem) => (
-                  <CommentListItem item={commentItem as ICommentItem} />
+                  <CommentListItem item={commentItem as Comment} />
                 ))}
               </Stack>
             </Box>
