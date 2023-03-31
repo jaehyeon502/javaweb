@@ -89,209 +89,101 @@ export default function BoardDetailView() {
     getBoard();
   }, []);
 
-  return (
-    <Box sx={{ p: "100px 222px" }}>
-      <Box>
-        <Box>
-          <Typography sx={{ fontSize: "32px", fontWeight: "500" }}>
-            {board?.boardTitle}
-          </Typography>
-          <Box
-            sx={{
-              mt: "20px",
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Avatar
-                src={board?.writerProfileUrl ? board?.writerProfileUrl : ''}
-                sx={{ width: "32px", height: "32px", mr: "8px" }}
-              />
-              <Typography
-                sx={{ mr: "8px", fontSize: "16px", fontWeight: "500" }}
-              >
-                {board?.writerNickname}
-              </Typography>
-              <Divider
-                sx={{ mr: "8px" }}
-                orientation="vertical"
-                variant="middle"
-                flexItem
-              />
-              <Typography
-                sx={{ fontSize: "16px", fontWeight: "400", opacity: "0.4" }}
-              >
-                {board?.boardWriteDatetime}
-              </Typography>
-            </Box>
-            {menuFlag && (
-              <IconButton onClick={(event) => onMenuClickHandler(event)}>
-                <MoreVertIcon />
-              </IconButton>
-            )}
-            <Menu
-              anchorEl={anchorElement}
-              open={menuOpen}
-              onClose={onMenuCloseHandler}
-            >
-              <MenuItem
-                sx={{ p: "10px 59px", opacity: "0.5" }}
-                onClick={() => navigator(`/board/update/${board?.boardNumber}`)}
-              >
-                수정
-              </MenuItem>
-              <Divider />
-              <MenuItem
-                sx={{ p: "10px 59px", color: "#ff0000", opacity: "0.5" }}
-              >
-                삭제
-              </MenuItem>
-            </Menu>
-          </Box>
-        </Box>
-        <Divider sx={{ m: "40px 0" }} />
-        <Box>
-          <Typography
-            sx={{ fontSize: "18px", fontWeight: "500", opacity: "0.7" }}
-          >
-            {board?.boardContent}
-          </Typography>
-          {board?.boardImgUrl && (
-            <Box
-              sx={{ width: "100%", mt: "20px" }}
-              component="img"
-              src={board?.boardImgUrl}
-              alt=""
-            />
-          )}
-        </Box>
-        <Box sx={{ display: "flex", alignItems: "center", mt: "20px" }}>
-          <Box sx={{ mr: "20px", display: "flex" }}>
-            {likeStatus ? (
-              <FavoriteIcon
-                sx={{
-                  height: "24px",
-                  width: "24px",
-                  mr: "6px",
-                  color: "#ff0000",
-                }}
-                onClick={() => setLikeStatus(!likeStatus)}
-              />
-            ) : (
-              <FavoriteBorderIcon
-                sx={{ height: "24px", width: "24px", mr: "6px", opacity: 0.7 }}
-                onClick={() => setLikeStatus(!likeStatus)}
-              />
-            )}
-            <Typography
-              sx={{
-                fontSize: "16px",
-                fontWeight: 500,
-                opacity: 0.7,
-                mr: "6px",
-              }}
-            >
-              좋아요 {board?.likeCount}
-            </Typography>
-            <IconButton
-              sx={{ height: "24px", width: "24px" }}
-              onClick={() => setOpenLike(!openLike)}
-            >
-              {openLike ? (
-                <KeyboardArrowUpOutlinedIcon />
-              ) : (
-                <KeyboardArrowDownOutlinedIcon />
-              )}
-            </IconButton>
-          </Box>
-          <Box sx={{ display: "flex" }}>
-            <CommentOutlinedIcon
-              sx={{ height: "24px", width: "24px", mr: "6px", opacity: 0.7 }}
-            />
-            <Typography
-              sx={{
-                fontSize: "16px",
-                fontWeight: 500,
-                opacity: 0.7,
-                mr: "6px",
-              }}
-            >
-              댓글 {board?.commentCount}
-            </Typography>
-            <IconButton
-              sx={{ height: "24px", width: "24px" }}
-              onClick={() => setOpenComment(!openComment)}
-            >
-              {openComment ? (
-                <KeyboardArrowUpOutlinedIcon />
-              ) : (
-                <KeyboardArrowDownOutlinedIcon />
-              )}
-            </IconButton>
-          </Box>
-        </Box>
-      </Box>
-      {openLike ? (
-        <Box sx={{ mt: "20px" }}>
-          <Card variant="outlined" sx={{ p: "20px" }}>
-            <Typography>좋아요 {likeList.length}</Typography>
-            <Box sx={{ m: "20px 0" }}>
-              {likeList.map((likeUser) => (
-                <LikeListItem likeUser={likeUser} />
-              ))}
-            </Box>
-          </Card>
-        </Box>
-      ) : (
-        <></>
-      )}
-      <Box>
-        {openComment && (
-          <Box>
-            <Box sx={{ p: "20px" }}>
-              <Typography sx={{ fontSize: "16px", fontWeight: 500 }}>
-                댓글 {boardList.length}
-              </Typography>
-              <Stack sx={{ p: "20px 0" }} spacing={3.75}>
-                {viewList.map((commentItem) => (
-                  <CommentListItem item={commentItem as Comment} />
-                ))}
-              </Stack>
-            </Box>
+  useEffect(() => {
+    if (!user) return;
+    const like = likeList.find((like) => like.userEmail == user?.email);
+    setLikeStatus(like !== undefined && like !== null);
+  }, [likeList])
 
-            <Divider />
-            <Box
-              sx={{ p: "20px 0", display: "flex", justifyContent: "center" }}
-            >
-              <Pagination
-                page={pageNumber}
-                count={getPageCount(boardList, COUNT)}
-                onChange={(event, value) => onPageHandler(value)}
-              />
-            </Box>
+  return (
+    <Box sx={{ p: '100px 222px' }}>
+        <Box>
             <Box>
-              <Card variant="outlined" sx={{ p: "20px" }}>
-                <Input minRows={3} multiline disableUnderline fullWidth />
-                <Box sx={{ display: "flex", justifyContent: "end" }}>
-                  <Button
-                    sx={{
-                      p: " 4px 23px",
-                      fontSize: "14px",
-                      fontWeight: 400,
-                      backgroundColor: "#000",
-                      color: "#fff",
-                      borderRadius: "46px",
-                    }}
-                  >
-                    댓글달기
-                  </Button>
+                <Typography sx={{ fontSize: '32px', fontWeight: 500 }}>{board?.boardTitle}</Typography>
+                <Box sx={{ mt: '20px', display: 'flex', justifyContent: 'space-between' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <Avatar src={board?.writerProfileUrl ? board?.writerProfileUrl : ''} sx={{ height: '32px', width: '32px', mr: '8px' }} />
+                        <Typography sx={{ mr: '8px', fontSize: '16px', fontWeight: 500 }}>{board?.writerNickname}</Typography>
+                        <Divider sx={{ mr: '8px' }} orientation='vertical' variant='middle' flexItem />
+                        <Typography sx={{ fontSize: '16px', fontWeight: 400, opacity: 0.4 }}>{board?.boardWriteDatetime}</Typography>
+                    </Box>
+                    { menuFlag && (
+                        <IconButton onClick={(event) => onMenuClickHandler(event)}>
+                            <MoreVertIcon />
+                        </IconButton>
+                    ) }
+                    <Menu anchorEl={anchorElement} open={menuOpen} onClose={onMenuCloseHandler}>
+                        <MenuItem sx={{ p: '10px 59px', opacity: 0.5 }} onClick={() => navigator(`/board/update/${board?.boardNumber}`)}>수정</MenuItem>
+                        <Divider />
+                        <MenuItem sx={{ p: '10px 59px', color: '#ff0000', opacity: 0.5 }}>삭제</MenuItem>
+                    </Menu>
                 </Box>
-              </Card>
             </Box>
-          </Box>
-        )}
-      </Box>
+            <Divider sx={{ m: '40px 0px' }} />
+            <Box>
+                <Typography sx={{ fontSize: '18px', fontWeight: 500, opacity: 0.7 }}>{board?.boardContent}</Typography>
+                { board?.boardImgUrl && (<Box sx={{ width: '100%', mt: '20px' }} component='img' src={board?.boardImgUrl} />) }
+            </Box>
+            <Box sx={{ display: 'flex', mt: '20px' }}>
+                <Box sx={{ mr: '20px', display: 'flex' }}>
+                    { likeStatus ? 
+                        (<FavoriteIcon sx={{ height: '24px', width: '24px', mr: '6px', opacity: 0.7, color: '#ff0000' }} onClick={() => setLikeStatus(!likeStatus)} />) : 
+                        (<FavoriteBorderIcon sx={{ height: '24px', width: '24px', mr: '6px', opacity: 0.7 }} onClick={() => setLikeStatus(!likeStatus)} />) 
+                    }
+                    <Typography sx={{ fontSize: '16px', fontWeight: 500, opacity: 0.7, mr: '6px' }}>좋아요 {board?.likeCount}</Typography>
+                    <IconButton sx={{ height: '24px', width: '24px' }} onClick={() => setOpenLike(!openLike)}>
+                        { openLike ? 
+                            (<KeyboardArrowUpOutlinedIcon />) : 
+                            (<KeyboardArrowDownOutlinedIcon />) 
+                        }
+                    </IconButton>
+                </Box>
+                <Box sx={{ display: 'flex' }}>
+                    <CommentOutlinedIcon sx={{ height: '24px', width: '24px', mr: '6px', opacity: 0.7 }} />
+                    <Typography sx={{ fontSize: '16px', fontWeight: 500, opacity: 0.7, mr: '6px' }}>댓글 {board?.commentCount}</Typography>
+                    <IconButton sx={{ height: '24px', width: '24px' }} onClick={() => setOpenComment(!openComment)}>
+                        { openComment ? 
+                            (<KeyboardArrowUpOutlinedIcon />) : 
+                            (<KeyboardArrowDownOutlinedIcon />) 
+                        }
+                    </IconButton>
+                </Box>
+            </Box>
+        </Box>
+        { openLike && (
+            <Box sx={{ mt: '20px' }}>
+                <Card variant='outlined' sx={{ p: '20px' }}>
+                    <Typography>좋아요 {board?.likeCount}</Typography>
+                    <Box sx={{ m: '20px 0px' }}>
+                        { likeList.map((likeUser) => (<LikeListItem likeUser={likeUser} />)) }
+                    </Box>
+                </Card>
+            </Box>
+        ) }
+        <Box>
+        { openComment && (
+            <Box>
+                <Box sx={{ p: '20px' }}>
+                    <Typography sx={{ fontSize: '16px', fontWeight: 500 }}>댓글 {boardList.length}</Typography>
+                    <Stack sx={{ p: '20px 0px' }} spacing={3.75}>
+                        {viewList.map((commentItem) => (<CommentListItem item={commentItem as Comment} />))}
+                    </Stack>
+                </Box>
+                <Divider />
+                <Box sx={{ p: '20px 0px', display: 'flex', justifyContent: 'center' }}>
+                    <Pagination page={pageNumber} count={getPageCount(boardList, COUNT)} onChange={(event, value) => onPageHandler(value)} />
+                </Box>
+                <Box>
+                    <Card variant='outlined' sx={{ p: '20px' }}>
+                        <Input minRows={3} multiline disableUnderline fullWidth />
+                        <Box sx={{ display: 'flex', justifyContent: 'end' }}>
+                            <Button sx={{ p: '4px 23px', backgroundColor: '#000000', fontSize: '14px', fontWeight: 400, color: '#ffffff', borderRadius: '46px' }}>댓글달기</Button>
+                        </Box>
+                    </Card>
+                </Box>
+            </Box>
+        ) }
+        </Box>
     </Box>
-  );
+  )
 }
