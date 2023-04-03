@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { GetListResponseDto, GetMyListResponseDto, GetSearchListResponseDto } from "src/apis/response/board";
-import { Comment, ICommentItem, IPreviewItem } from "src/interfaces";
-import { BOARD_LIST } from "src/mock";
-
+import { Comment } from "src/interfaces";
 const usePagingHook = (COUNT: number) => {
 
   const [boardList, setBoardList] = useState<(GetListResponseDto | GetSearchListResponseDto | GetMyListResponseDto | Comment)[]>([]);

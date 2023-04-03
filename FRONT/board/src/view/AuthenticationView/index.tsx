@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 //? Box 컴포넌트 : mui에서 공간을 할당하는 모든 태그를 포함
 //? Grid 컴포넌트 : mui에서 공간을 12등분하여 가로 사이즈에 따라 반응형 웹 개발을 지원
 //? Typography 컴포넌트 : mui에서 글자를 출력하는 모든 태그를 포함
 import { Box, Typography, Grid, Card } from '@mui/material'
 import ContentPasteTwoToneIcon from '@mui/icons-material/ContentPasteTwoTone';
+
 import LoginCardView from './LoginCardView';
 import SignUpCardView from './SignUpCardView';
 
@@ -13,6 +14,7 @@ import SignUpCardView from './SignUpCardView';
 
 export default function AuthenticationView() {
 
+    //          Hook          //
     const [loginView, setLoginView] = useState<boolean>(true);
 
     return (

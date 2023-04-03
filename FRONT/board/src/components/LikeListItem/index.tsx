@@ -2,7 +2,7 @@ import React from "react";
 
 import { Box, Avatar, Typography } from "@mui/material";
 
-import { ILikeUser, Liky } from "src/interfaces";
+import { Liky } from "src/interfaces";
 
 interface Props {
     likeUser: Liky;
