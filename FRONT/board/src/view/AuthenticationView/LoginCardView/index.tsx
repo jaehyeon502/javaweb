@@ -1,17 +1,18 @@
 import { Dispatch, SetStateAction, useState } from 'react'
-import axios, { AxiosResponse } from 'axios';
-import { Box, Button, Typography, TextField, FormControl, InputLabel, Input, InputAdornment, IconButton } from '@mui/material'
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import Visibility from '@mui/icons-material/Visibility';
-import { USER } from 'src/mock';
-import { useUserStore } from 'src/stores';
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+
+import axios, { AxiosResponse } from 'axios';
+
+import { Box, Button, Typography, TextField, FormControl, InputLabel, Input, InputAdornment, IconButton } from '@mui/material'
+import { VisibilityOff, Visibility } from '@mui/icons-material';
+
+import { getExpires } from 'src/utils';
+import { useUserStore } from 'src/stores';
 import { SIGN_IN_URL } from 'src/constants/api';
 import { SignInDto } from 'src/apis/request/auth';
 import ResponseDto from 'src/apis/response';
 import { SignInResponseDto } from 'src/apis/response/auth';
-import { useCookies } from 'react-cookie';
-import { getExpires } from 'src/utils';
 
 interface Props {
     setLoginView: Dispatch<SetStateAction<boolean>>;
@@ -19,15 +20,17 @@ interface Props {
 
 export default function LoginCardView({ setLoginView }: Props) {
     
-    const { setUser } = useUserStore();
+    //          Hook          //
     const navigator = useNavigate();
-    const [cookies, setCookie] = useCookies();
 
+    const { setUser } = useUserStore();
+
+    const [cookies, setCookie] = useCookies();
     const [email, setEmail] = useState<string>('');
     const [ password, setPassword ] = useState<string>('');
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
-
+    //          Event Handler          //
     const onLoginHandler = () => {
         //? email 입력했는지 검증 / password 입력했는지 검증
         if( !email.trim() || !password){
@@ -47,7 +50,8 @@ export default function LoginCardView({ setLoginView }: Props) {
 
         
     }
-
+    
+    //          Response Handler          //
     const signInResponseHandler = (response: AxiosResponse<any, any>) => {
         const { result, message, data } = response.data as ResponseDto<SignInResponseDto>;
 
@@ -67,6 +71,7 @@ export default function LoginCardView({ setLoginView }: Props) {
         
     }
 
+    //          Error Handler          //
     const signInErrorHandler = (error: any) => {
         console.log(error.message);
     }

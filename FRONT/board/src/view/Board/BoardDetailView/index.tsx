@@ -1,5 +1,8 @@
 import React, { MouseEvent, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
+import axios, { AxiosResponse } from "axios";
 import { Avatar, Box, Card, Divider, IconButton, Menu, MenuItem, Typography, Stack, Pagination, Input, Button } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -7,23 +10,26 @@ import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { useNavigate, useParams } from "react-router-dom";
+
 import { Board, Comment, Liky } from "src/interfaces";
 import { useUserStore } from "src/stores";
 import LikeListItem from "src/components/LikeListItem";
 import CommentListItem from "src/components/CommentListItem";
 import { usePagingHook } from "src/hooks";
 import { getPageCount } from "src/utils";
-import axios, { AxiosResponse } from "axios";
 import ResponseDto from "src/apis/response";
 import { DeleteBoardResponseDto, GetBoardResponseDto, LikeResponseDto, PostCommentResponseDto } from "src/apis/response/board";
 import { authorizationHeader, DELETE_BOARD_URL, GET_BOARD_URL, LIKE_URL, POST_COMMENT_URL } from "src/constants/api";
-import { useCookies } from "react-cookie";
 import { LikeDto, PostCommentDto } from "src/apis/request/board";
 
 export default function BoardDetailView() {
+  
+    //          Hook          //
+  const navigator = useNavigate();
 
   const { boardList, viewList, pageNumber, setBoardList, onPageHandler, COUNT } = usePagingHook(3);
+  const { boardNumber } = useParams();
+  const { user } = useUserStore();
 
   const [ cookies ] = useCookies();
 
@@ -43,42 +49,23 @@ export default function BoardDetailView() {
   const accessToken = cookies.accessToken;
   let isLoad = false;
   
-  const { boardNumber } = useParams();
-  const navigator = useNavigate();
-
-  const { user } = useUserStore();
-
-  const getBoard = () => {
-    axios.get(GET_BOARD_URL(boardNumber as string))
-        .then((response) => getBoardResponseHandler(response))
-        .catch((error) => getBoardErrorHandler(error));
-  }
-
-  const getBoardResponseHandler = (response: AxiosResponse<any, any>) => {
-    const { result, message, data } = response.data as ResponseDto<GetBoardResponseDto>;
-    if (!result || data === null) {
-      alert(message);
-      navigator('/');
-      return;
-    }
-    setBoardResponse(data);
-
-  }
-
-  const getBoardErrorHandler = (error: any) => {
-    console.log(error.message);
-  }
+  //          Event Handler          //
+  const onMenuCloseHandler = () => {
+    setAnchorElement(null);
+    setMenuOpen(false);
+  };
 
   const onMenuClickHandler = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorElement(event.currentTarget);
     setMenuOpen(true);
   };
 
-  const onMenuCloseHandler = () => {
-    setAnchorElement(null);
-    setMenuOpen(false);
-  };
-
+  const getBoard = () => {
+    axios.get(GET_BOARD_URL(boardNumber as string))
+        .then((response) => getBoardResponseHandler(response))
+        .catch((error) => getBoardErrorHandler(error));
+  }
+  
   const onLikeHandler = () => {
     if (!accessToken) {
       alert('로그인이 필요합니다.')
@@ -90,19 +77,6 @@ export default function BoardDetailView() {
     axios.post(LIKE_URL, data, authorizationHeader(accessToken))
         .then((response) => likeResponseHandler(response))
         .catch((error) => likeErrorHandler(error));
-  }
-
-  const likeResponseHandler = (response: AxiosResponse<any, any>) => {
-    const { result, message, data } = response.data as ResponseDto<LikeResponseDto>;
-    if (!result || data === null) {
-      alert(message);
-      return;
-    }
-    setBoardResponse(data);
-  }
-
-  const likeErrorHandler = (error: any) => {
-    console.log(error.message);
   }
 
   const onPostCommentHandler = () => {
@@ -121,20 +95,6 @@ export default function BoardDetailView() {
         .catch((error) => postCommentErrorHandler(error));
   }
 
-  const postCommentResponseHandler = (response: AxiosResponse<any, any>) => {
-    const { result, message, data } = response.data as ResponseDto<PostCommentResponseDto>;
-    if (!result || data === null) {
-      alert(message);
-      return;
-    }
-    setBoardResponse(data);
-    setCommentContent('');
-  }
-
-  const postCommentErrorHandler = (error: any) => {
-    console.log(error.message);
-  }
-
   const onDeleteHandler = () => {
     if (!accessToken) {
       alert('로그인이 필요합니다.');
@@ -150,6 +110,37 @@ export default function BoardDetailView() {
         .catch((error) => deleteBoardErrorHandler(error));
   }
 
+  //          Response Handler          //
+  const getBoardResponseHandler = (response: AxiosResponse<any, any>) => {
+    const { result, message, data } = response.data as ResponseDto<GetBoardResponseDto>;
+    if (!result || data === null) {
+      alert(message);
+      navigator('/');
+      return;
+    }
+    setBoardResponse(data);
+
+  }
+
+  const likeResponseHandler = (response: AxiosResponse<any, any>) => {
+    const { result, message, data } = response.data as ResponseDto<LikeResponseDto>;
+    if (!result || data === null) {
+      alert(message);
+      return;
+    }
+    setBoardResponse(data);
+  }
+
+  const postCommentResponseHandler = (response: AxiosResponse<any, any>) => {
+    const { result, message, data } = response.data as ResponseDto<PostCommentResponseDto>;
+    if (!result || data === null) {
+      alert(message);
+      return;
+    }
+    setBoardResponse(data);
+    setCommentContent('');
+  }
+
   const deleteBoardResponseHandler = (response: AxiosResponse<any, any>) => {
     const { result, message, data } = response.data as ResponseDto<DeleteBoardResponseDto>;
     if (!result || !data || !data.resultStatus) {
@@ -159,10 +150,24 @@ export default function BoardDetailView() {
     navigator('/');
   }
 
+  //          Error Handler          //
+  const getBoardErrorHandler = (error: any) => {
+    console.log(error.message);
+  }
+
+  const likeErrorHandler = (error: any) => {
+    console.log(error.message);
+  } 
+
+  const postCommentErrorHandler = (error: any) => {
+    console.log(error.message);
+  }
+
   const deleteBoardErrorHandler = (error: any) => {
     console.log(error.message);
   }
 
+  //          function          //
   const setBoardResponse = (data: GetBoardResponseDto | LikeResponseDto | PostCommentResponseDto ) => {
     const { board, commentList, likeList } = data;
     setBoard(board);
@@ -173,6 +178,7 @@ export default function BoardDetailView() {
     setMenuFlag(owner);
   }
 
+  //          Use Effect          //
   useEffect(() => {
     if (isLoad) return;
     //? boardNumber가 존재하는지 검증
