@@ -113,7 +113,7 @@ export default function BoardWriteView() {
           </IconButton>
         </Box>
       </Box>
-      <Fab sx={{ position: 'fixed', right: '248px', bottom: '200px', backgroundColor: 'rgba(0, 0, 0, 0.4)' }} onClick={onWriteHandler} >
+      <Fab sx={{ position: 'fixed' , right: '248px', bottom: '200px', backgroundColor: '#999999' }} onClick={onWriteHandler} >
         <CreateIcon />
       </Fab>
     </Box>

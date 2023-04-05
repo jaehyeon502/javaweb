@@ -18,11 +18,14 @@ export default function SearchView() {
   const { content } = useParams();
   const {viewList, pageNumber, boardList, setBoardList, onPageHandler, COUNT  } = usePagingHook(5);
 
-  const [ popularList, setPopularList ] = useState<string[]>([]);
+  const [popularList, setPopularList] = useState<string[]>([]);
+  const [previousSearchWord,setPreviousSearchWord] = useState<string>('');
+
+  let loadFlag = true;
 
   //          Event Handler          //
     const getSearchList = () => {
-      axios.get(GET_SEARCH_LIST_URL(content as string))
+      axios.get(GET_SEARCH_LIST_URL(content as string, previousSearchWord))
           .then((response) => getSearchListResponseHandler(response))
           .catch((error) => getSearchListErrorHandler(error));
     }
@@ -57,6 +60,8 @@ export default function SearchView() {
 
     //          Use Effect          //
     useEffect(() => {
+      if (loadFlag) {
+        loadFlag = false;
         //# array.filter(요소 => 조건)
         //? 특정한 조건에 부합하는 요소만 모아서 새로운 배열로 만들어 반환하는 메서드
         //# string.includes(검색할 문자열)
@@ -64,6 +69,8 @@ export default function SearchView() {
         // const tmp = BOARD_LIST.filter((board) => board.boardTitle.includes(content as string));
         getSearchList();
         getTop15RelatedSearchWord();
+        setPreviousSearchWord(content as string);
+      }
     }, [content])
 
   return (
