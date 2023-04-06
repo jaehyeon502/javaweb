@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, ChangeEvent } from 'react'
+import { useState, useEffect, useRef, ChangeEvent, KeyboardEvent } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 
@@ -29,6 +29,17 @@ export default function BoardWriteView() {
   const accessToken = cookies.accessToken;
 
   //          Event Handler          //
+  const onBoardContentChangeHandler = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const value = event.target.value;
+    console.log(value);
+    setBoardContent(value);
+  }
+
+  const onBoardContentKeyPressHandler = (event: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (event.key != 'Enter') return;
+    setBoardContent(boardContent + '\n');
+  }
+
   const onImageUploadButtonHandler = () => {
     if (!imageRef.current) return;
     imageRef.current.click();
@@ -104,7 +115,7 @@ export default function BoardWriteView() {
         <Divider sx={{ m: '40px 0' }} />
         <Box sx={{ display: 'flex', alignItems: 'start' }}>
           <Box sx={{ width: '100%' }}>
-            <Input fullWidth disableUnderline multiline minRows={5} placeholder="본문을 작성해주세요." sx={{ fontSize: '18px', fontWeight: '500', lineHeight: '150%' }} onChange={(event) => setBoardContent(event.target.value)} />
+            <Input fullWidth disableUnderline multiline minRows={5} placeholder="본문을 작성해주세요." sx={{ fontSize: '18px', fontWeight: '500', lineHeight: '150%' }} onChange={(event) => onBoardContentChangeHandler(event)} onKeyDown={(event) => onBoardContentKeyPressHandler(event)} />
             <Box sx={{ width: '100%' }} component='img' src={boardImgUrl} />
           </Box>
           <IconButton onClick={() => onImageUploadButtonHandler()}>
