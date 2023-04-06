@@ -1,7 +1,8 @@
 package com.springst.board.dto.request.user;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.Length;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -14,6 +15,6 @@ import lombok.NoArgsConstructor;
 public class ValidateNicknameDto {
     @ApiModelProperty(value="유저 닉네임", example="qwer1234", required=true)
     @NotBlank
-    @Max(15)
+    @Length(max=15)
     private String nickname;
 }

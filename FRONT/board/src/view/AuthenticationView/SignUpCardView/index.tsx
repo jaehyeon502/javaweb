@@ -16,13 +16,16 @@ import {
 } from "@mui/material";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
+import CheckIcon from '@mui/icons-material/Check';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 import { useSignUpStore } from 'src/stores';
 import { SignUpDto } from "src/apis/request/auth";
 import ResponseDto from "src/apis/response";
 import { SignUpResponseDto } from "src/apis/response/auth";
-import { SIGN_UP_URL } from "src/constants/api";
+import { SIGN_UP_URL, VALIDATE_EMAIL_URL, VALIDATE_NICKNAME_URL } from "src/constants/api";
+import { ValidateEmailDto, ValidateNicknameDto } from "src/apis/request/user";
+import { ValidateEmailResponseDto, ValidateNicknameResponseDto } from "src/apis/response/user";
 
 //          Component          //
 interface FirstPageProps {
@@ -35,6 +38,7 @@ function FirstPage({ signUpError }: FirstPageProps) {
     const { email, password, passwordCheck } = useSignUpStore();
     const { setEmail, setPassword, setPasswordCheck } = useSignUpStore();
 
+    const [emailValidateMessage, setEmailValidateMessage] = useState<string>('');
     const [emailMessage, setEmailMessage] = useState<string>('');
     const [passwordMessage, setPasswordMessage] = useState<string>('');
     const [passwordCheckMessage, setPasswordCheckMessage] = useState<string>('');
@@ -42,7 +46,7 @@ function FirstPage({ signUpError }: FirstPageProps) {
     const [showPasswordCheck, setShowPasswordCheck] = useState<boolean>(false);
 
     const emailValidator = /^[A-Za-z0-9]*@[A-Za-z0-9]([-.]?[A-Za-z0-9])*\.[A-Za-z0-9]{2,3}$/;
-    const passwordValidator = /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!?_]).{8,20}$/;
+    const passwordValidator = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!?_]).{8,20}$/;
 
     //          Event Handler          //
     const onEmailChangeHandler = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -53,11 +57,19 @@ function FirstPage({ signUpError }: FirstPageProps) {
         setEmail(value);
     }
 
+    const onEmailValidateButtonHanlder = () => {
+        const data: ValidateEmailDto = { email };
+
+        axios.post(VALIDATE_EMAIL_URL, data)
+            .then((response) => validateEmailResponseHanlder(response))
+            .catch((error) => validateEmailErrorHanlder(error));
+    }
+
     const onPasswordChangeHandler = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         const value = event.target.value;
         const isMatched = passwordValidator.test(value);
         if (isMatched) setPasswordMessage('');
-        else setPasswordMessage('영문자 + 숫자 + 특수문자(!?_)를 포함한 8-20자를 입력해주세요.');
+        else setPasswordMessage('영대문자 + 영소문자 + 숫자 + 특수문자(!?_)를 포함한 8-20자를 입력해주세요.');
         setPassword(value);
     }
 
@@ -69,18 +81,38 @@ function FirstPage({ signUpError }: FirstPageProps) {
         setPasswordCheck(value);
     }
 
+    //          Response Handler          //
+    const validateEmailResponseHanlder = (response: AxiosResponse<any, any>) => {
+        const { result, message, data } = response.data as ResponseDto<ValidateEmailResponseDto>;
+        if (!result || !data) {
+            alert(message);
+            return;
+        }
+        const validateMessage = data.result ? '' : '중복되는 이메일입니다.';
+        setEmailValidateMessage(validateMessage);
+    }
+
+    //          Error Handler          //
+    const validateEmailErrorHanlder = (error: any) => {
+        console.log(error.message);
+    }
+
     return (
         <Box>
-            <TextField
-                sx={{ mt: "40px" }}
-                error={signUpError}
-                fullWidth
-                label="이메일 주소*"
-                variant="standard"
-                value={email}
-                helperText={emailMessage}
-                onChange={(event) => onEmailChangeHandler(event)}
-            />
+            <FormControl sx={{ mt: '40px' }} error={signUpError} fullWidth variant="standard">
+                <InputLabel>이메일 주소*</InputLabel>
+                <Input type="text" endAdornment={
+                    <InputAdornment position="end">
+                        <IconButton onClick={() => onEmailValidateButtonHanlder()}>
+                            <CheckIcon />
+                        </IconButton>
+                    </InputAdornment>
+                }
+                    value={email}
+                    onChange={(event) => onEmailChangeHandler(event)}
+                />
+                <FormHelperText sx={{ color: 'red' }}>{emailMessage} {emailValidateMessage}</FormHelperText>
+            </FormControl>
             <FormControl sx={{ mt: "40px" }} error={signUpError} fullWidth variant="standard">
                 <InputLabel>비밀번호*</InputLabel>
                 <Input
@@ -131,6 +163,7 @@ function SecondPage({ signUpError }: SecondPageProps) {
     const { setNickname, setTelNumber, setAddress, setAddressDetail } = useSignUpStore();
 
     const [telNumberMessage, setTelNumberMessage] = useState<string>('');
+    const [NicknameValidateMessage, setNicknameValidateMessage] = useState<string>('');
 
     const telNumberVaildator = /^[0-9]{0,13}$/;
     // const telNumberVaildator = /^[0-9]{3}-[0-9]{3,4}-[0-9]{3,4}$/;
@@ -144,10 +177,63 @@ function SecondPage({ signUpError }: SecondPageProps) {
         setTelNumber(value);
     }
 
+    const onNicknameValidateButtonHandler = () => {
+
+        const data: ValidateNicknameDto = {nickname};
+
+        axios.post(VALIDATE_NICKNAME_URL, data)
+            .then((response) => ValidateNicknameResponseHandler(response))
+            .catch((error) => ValidateNicknameErrorHandler(error));
+            console.log(NicknameValidateMessage);
+    }
+
+    //          Response Handler          //
+    const ValidateNicknameResponseHandler = (response: AxiosResponse<any, any>) => {
+        const {result, message, data} = response.data as ResponseDto<ValidateNicknameResponseDto>;
+        if (!result || !data) {
+            alert(message);
+            return;
+        }
+        const validateMessage = data.result ? '' : '중복되는 닉네임입니다.'; 
+        setNicknameValidateMessage(validateMessage);
+    }
+
+    //          Error Handler          //
+    const ValidateNicknameErrorHandler = (error: any) => {
+        console.log(error.message);
+    }
+
     return (
         <Box>
-            <TextField sx={{ mt: '40px' }} error={signUpError} fullWidth label="닉네임*" variant="standard" value={nickname} onChange={(event) => setNickname(event.target.value)} />
-            <TextField sx={{ mt: '40px' }} error={signUpError} fullWidth label="휴대폰 번호*" variant="standard" value={telNumber} onChange={(event) => onTelNumberHandler(event)} helperText={telNumberMessage} />
+            {/* <TextField sx={{ mt: '40px' }} error={signUpError} fullWidth label="닉네임*" variant="standard" value={nickname} onChange={(event) => setNickname(event.target.value)} /> */}
+            <FormControl sx={{ mt: '40px' }} error={signUpError} fullWidth variant="standard">
+                <InputLabel>닉네임*</InputLabel>
+                <Input type="text" endAdornment={
+                    <InputAdornment position="end">
+                        <IconButton onClick={() => onNicknameValidateButtonHandler()}>
+                            <CheckIcon />
+                        </IconButton>
+                    </InputAdornment>
+                }
+                value={nickname}
+                onChange={(event) => setNickname(event.target.value)}
+                />
+                <FormHelperText sx={{ color: 'red' }}>{} {NicknameValidateMessage}</FormHelperText>
+            </FormControl>
+            {/* <TextField sx={{ mt: '40px' }} error={signUpError} fullWidth label="휴대폰 번호*" variant="standard" value={telNumber} onChange={(event) => onTelNumberHandler(event)} helperText={telNumberMessage} /> */}
+            <FormControl sx={{ mt: '40px' }} error={signUpError} fullWidth variant="standard">
+                <InputLabel>휴대폰 번호*</InputLabel>
+                <Input type="text" endAdornment={
+                    <InputAdornment position="end">
+                        <IconButton onClick={() => onNicknameValidateButtonHandler()}>
+                            <CheckIcon />
+                        </IconButton>
+                    </InputAdornment>
+                }
+                value={telNumber}
+                onChange={(event) => onTelNumberHandler(event)}
+                />
+            </FormControl>
             <FormControl sx={{ mt: '40px' }} error={signUpError} fullWidth variant="standard">
                 <InputLabel>주소*</InputLabel>
                 <Input type="text" endAdornment={
@@ -162,10 +248,10 @@ function SecondPage({ signUpError }: SecondPageProps) {
                 />
             </FormControl>
             <TextField sx={{ mt: '40px' }} error={signUpError} fullWidth label="상세 주소*" variant="standard" value={addressDetail} onChange={(event) => setAddressDetail(event.target.value)} />
-            <Box sx={{ display:'flex', alignItems: 'center', mt: '24px' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', mt: '24px' }}>
                 <Checkbox color="default" />
                 <Typography sx={{ mr: '4px', color: 'red', fontWeight: 400 }}>개인정보동의</Typography>
-                <Typography sx={{ fontWeight:500 }}>더보기&gt;</Typography>
+                <Typography sx={{ fontWeight: 500 }}>더보기&gt;</Typography>
             </Box>
         </Box>
     );
